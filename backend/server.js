@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import { errorMiddleware } from "./middleware/errorMiddleware.js";
 dotenv.config({});
 
 const corsOptions = {
@@ -17,14 +18,16 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
 
+
+
+app.use("/api/auth", authRoutes);
 app.get("/api/health", (req, res) => {
   res.json({ status: "UP", message: "Server is running smoothly" });
 });
 
-app.use("/api/auth", authRoutes);
+app.use(errorMiddleware);
 
 const PORT = process.env.PORT || 5001;
-
 const startServer = async () => {
   try {
     await connectDB();
