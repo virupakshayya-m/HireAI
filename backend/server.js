@@ -2,6 +2,7 @@ import express, { urlencoded } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./config/db.js";
+import authRoutes from "./routes/authRoutes.js";
 dotenv.config({});
 
 const corsOptions = {
@@ -19,6 +20,8 @@ app.use(urlencoded({ extended: true }));
 app.get("/api/health", (req, res) => {
   res.json({ status: "UP", message: "Server is running smoothly" });
 });
+
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5001;
 

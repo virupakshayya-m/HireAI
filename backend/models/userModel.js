@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
         bio: String,
         skills: [String],
         resume: String,
-        company: {type: mongoose.Schema.Types.ObjectId, ref: "company"}
+        company: {type: mongoose.Schema.Types.ObjectId, ref: "Company"}
     }
 }, {timestamps: true});
 
