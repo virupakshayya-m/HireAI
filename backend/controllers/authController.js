@@ -3,6 +3,10 @@ import { loginSchema, registerSchema } from "../validators/authValidator.js";
 import User from "../models/userModel.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+} from "../services/tokenService.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
   const result = registerSchema.safeParse(req.body);
@@ -76,9 +80,20 @@ export const loginUser = asyncHandler(async (req, res) => {
     throw new AppError("Invalid email or password", 401);
   }
 
+  const accessToken = generateAccessToken(user._id);
+  const refreshToken = generateRefreshToken(user._id);
+
+  res.cookie("refreshtoken", refreshToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days in milliseconds
+  });
+
   res.status(200).json({
     success: true,
     message: "user logged in successfully",
+    accessToken,
     user: {
       name: user.name,
       email: user.email,
