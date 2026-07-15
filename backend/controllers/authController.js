@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
-import { registerSchema } from "../validators/authValidator.js";
+import { loginSchema, registerSchema } from "../validators/authValidator.js";
 import User from "../models/userModel.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import AppError from "../utils/AppError.js";
 
 export const registerUser = asyncHandler(async (req, res) => {
   const result = registerSchema.safeParse(req.body);
@@ -32,7 +33,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   const newUser = new User({
     name,
-    email: email.toLocaleLowerCase(),
+    email: email.toLowerCase(),
     password: hashedPassword,
     role,
   });
@@ -46,6 +47,42 @@ export const registerUser = asyncHandler(async (req, res) => {
       name: savedUser.name,
       email: savedUser.email,
       role: savedUser.role,
+    },
+  });
+});
+
+export const loginUser = asyncHandler(async (req, res) => {
+  const result = loginSchema.safeParse(req.body);
+
+  if (!result.success) {
+    return res.status(400).json({
+      success: false,
+      message: "Validation failed",
+
+      errors: result.error.flatten().fieldErrors,
+    });
+  }
+
+  const { email, password } = result.data;
+
+  const user = await User.findOne({ email: email.toLowerCase() });
+  if (!user) {
+    throw new AppError("Invalid email or password", 401);
+  }
+
+  const isMatch = await user.comparePassword(password);
+
+  if (!isMatch) {
+    throw new AppError("Invalid email or password", 401);
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "user logged in successfully",
+    user: {
+      name: user.name,
+      email: user.email,
+      role: user.role,
     },
   });
 });

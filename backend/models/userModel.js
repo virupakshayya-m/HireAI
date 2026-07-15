@@ -1,34 +1,42 @@
 import mongoose from "mongoose";
+import bcrypt from "bcryptjs";
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true,
-        trim: true
+      type: String,
+      required: true,
+      trim: true,
     },
     email: {
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-        trim: true
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     role: {
-        type: String,
-        required: true,
-        enum: ["candidate", "recruiter", "admin"],
-        default: "candidate"
+      type: String,
+      required: true,
+      enum: ["candidate", "recruiter", "admin"],
+      default: "candidate",
     },
     profile: {
-        bio: String,
-        skills: [String],
-        resume: String,
-        company: {type: mongoose.Schema.Types.ObjectId, ref: "Company"}
-    }
-}, {timestamps: true});
+      bio: String,
+      skills: [String],
+      resume: String,
+      company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
+    },
+  },
+  { timestamps: true },
+);
+
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 export default mongoose.model("User", userSchema);
