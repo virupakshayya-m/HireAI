@@ -151,3 +151,23 @@ export const refreshToken = asyncHandler(async (req, res) => {
     message: "Access token is successfully refreshed",
   });
 });
+
+export const logoutUser = asyncHandler(async (req, res) => {
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  });
+
+  res.status(200).json({ success: true, message: "Logged out successfully" });
+});
+
+export const getCurrentUser = asyncHandler(async (req, res) => {
+  res.status(200).json({ success: true, user: req.user });
+});
