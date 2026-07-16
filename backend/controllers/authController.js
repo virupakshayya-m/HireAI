@@ -7,6 +7,8 @@ import {
   generateAccessToken,
   generateRefreshToken,
 } from "../services/tokenService.js";
+import jwt from "jsonwebtoken";
+import { success } from "zod";
 
 export const registerUser = asyncHandler(async (req, res) => {
   const result = registerSchema.safeParse(req.body);
@@ -107,5 +109,45 @@ export const loginUser = asyncHandler(async (req, res) => {
       accessToken,
       refreshToken,
     },
+  });
+});
+
+export const refreshToken = asyncHandler(async (req, res) => {
+  const refreshToken = req.cookies.refreshToken;
+
+  if (!refreshToken) {
+    throw new AppError("Not authorized. no token provided", 401);
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+  } catch (error) {
+    if (error.name == "TokenExpiredError") {
+      throw new AppError("jwt expired", 401);
+    }
+    throw new AppError("Not authorized, invalid token", 401);
+  }
+
+  const currentUser = await User.findById(decoded.id).select("_id");
+  if (!currentUser) {
+    throw new AppError(
+      "The user belonging to this token no longer exists.",
+      401,
+    );
+  }
+
+  const accessToken = generateAccessToken(currentUser._id);
+
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 15 * 60 * 1000,
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "Access token is successfully refreshed",
   });
 });

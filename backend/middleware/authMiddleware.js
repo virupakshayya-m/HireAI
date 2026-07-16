@@ -15,7 +15,7 @@ export const protect = asyncHandler(async (req, res, next) => {
     decoded = jwt.verify(token, process.env.JWT_ACCESS_SECRET);
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      throw new AppError("Your session has expired. Please log in again.", 401);
+      throw new AppError("jwt expired", 401);
     }
     throw new AppError("Not authorized, invalid token", 401);
   }
@@ -32,3 +32,22 @@ export const protect = asyncHandler(async (req, res, next) => {
   req.user = currentUser;
   next();
 });
+
+export const restrictTo = (...allowedRoles) => {
+  return (req, res, next) => {
+    if (!req.user) {
+      return next(new AppError("Unauthorized: No user session found.", 401));
+    }
+
+    if (!allowedRoles.includes(req.user.role)) {
+      return next(
+        new AppError(
+          "Forbidden: You do not have permission to perform this action.",
+          403,
+        ),
+      );
+    }
+
+    next();
+  };
+};
