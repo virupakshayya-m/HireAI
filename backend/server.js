@@ -1,6 +1,7 @@
 import express, { urlencoded } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
@@ -14,11 +15,9 @@ const corsOptions = {
 const app = express();
 
 app.use(cors(corsOptions));
-
+app.use(cookieParser());
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
-
-
 
 app.use("/api/auth", authRoutes);
 app.get("/api/health", (req, res) => {
@@ -38,6 +37,6 @@ const startServer = async () => {
     console.log("Failed to start server: ", error.message);
     process.exit(1);
   }
-}
+};
 
 startServer();

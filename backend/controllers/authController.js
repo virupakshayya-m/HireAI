@@ -83,7 +83,14 @@ export const loginUser = asyncHandler(async (req, res) => {
   const accessToken = generateAccessToken(user._id);
   const refreshToken = generateRefreshToken(user._id);
 
-  res.cookie("refreshtoken", refreshToken, {
+  res.cookie("accessToken", accessToken, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    maxAge: 15 * 60 * 1000, // 15 mins in milliseconds
+  });
+
+  res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
@@ -93,11 +100,12 @@ export const loginUser = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "user logged in successfully",
-    accessToken,
     user: {
       name: user.name,
       email: user.email,
       role: user.role,
+      accessToken,
+      refreshToken,
     },
   });
 });
