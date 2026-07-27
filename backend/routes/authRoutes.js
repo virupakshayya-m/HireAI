@@ -3,6 +3,7 @@ import {
   getCurrentUser,
   loginUser,
   logoutUser,
+  refreshToken,
   registerUser,
 } from "../controllers/authController.js";
 import { protect, restrictTo } from "../middleware/authMiddleware.js";
@@ -13,6 +14,8 @@ router.post("/login", loginUser);
 
 router.post("/logout", protect, logoutUser);
 router.get("/me", protect, getCurrentUser);
+
+router.post("/refresh-token", refreshToken);
 
 // Dummy routes to check
 router.post("/jobs", protect, restrictTo("recruiter"), (req, res) => {
