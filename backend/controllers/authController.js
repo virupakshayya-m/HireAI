@@ -8,7 +8,6 @@ import {
   generateRefreshToken,
 } from "../services/tokenService.js";
 import jwt from "jsonwebtoken";
-import { success } from "zod";
 
 export const registerUser = asyncHandler(async (req, res) => {
   const result = registerSchema.safeParse(req.body);

@@ -25,11 +25,15 @@ const userSchema = new mongoose.Schema(
       enum: ["candidate", "recruiter", "admin"],
       default: "candidate",
     },
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+      default: null,
+    },
     profile: {
       bio: String,
       skills: [String],
       resume: String,
-      company: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
     },
   },
   { timestamps: true },

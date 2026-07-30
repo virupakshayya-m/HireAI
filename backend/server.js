@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
+import companyRoutes from "./routes/companyRoutes.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 dotenv.config({});
 
@@ -20,6 +21,7 @@ app.use(express.json());
 app.use(urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
+app.use("/api/companies", companyRoutes);
 app.get("/api/health", (req, res) => {
   res.json({ status: "UP", message: "Server is running smoothly" });
 });
