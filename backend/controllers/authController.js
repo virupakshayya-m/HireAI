@@ -16,7 +16,6 @@ export const registerUser = asyncHandler(async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Validation failed",
-      // .flatten().fieldErrors formats errors neatly by field name
       errors: result.error.flatten().fieldErrors,
     });
   }
@@ -25,13 +24,7 @@ export const registerUser = asyncHandler(async (req, res) => {
 
   const emailExists = await User.exists({ email: email.toLowerCase() });
   if (emailExists) {
-    return res.status(400).json({
-      success: false,
-      message: "Validation failed",
-      errors: {
-        email: ["This email is already registered"], // Matches Zod's error array format!
-      },
-    });
+    throw new AppError("This email is already registered", 400);
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -63,7 +56,6 @@ export const loginUser = asyncHandler(async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Validation failed",
-
       errors: result.error.flatten().fieldErrors,
     });
   }

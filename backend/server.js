@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import companyRoutes from "./routes/companyRoutes.js";
+import jobRoutes from "./routes/jobRoutes.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 dotenv.config({});
 
@@ -22,6 +23,7 @@ app.use(urlencoded({ extended: true }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/companies", companyRoutes);
+app.use("/api/jobs", jobRoutes);
 app.get("/api/health", (req, res) => {
   res.json({ status: "UP", message: "Server is running smoothly" });
 });

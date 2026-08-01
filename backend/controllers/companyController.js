@@ -1,11 +1,10 @@
-import Company from "../models/companyModel";
+import Company from "../models/companyModel.js";
 import {
   companySchema,
   updateCompanySchema,
-} from "../validators/companyValidator";
+} from "../validators/companyValidator.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
-import { success } from "zod";
 import mongoose, { mongo } from "mongoose";
 
 export const createCompany = asyncHandler(async (req, res) => {
@@ -15,7 +14,6 @@ export const createCompany = asyncHandler(async (req, res) => {
     return res.status(400).json({
       success: false,
       message: "Validation failed",
-
       errors: validatedResult.error.flatten().fieldErrors,
     });
   }
@@ -27,14 +25,7 @@ export const createCompany = asyncHandler(async (req, res) => {
   }
 
   if (recruiter.company) {
-    return res.status(409).json({
-      success: false,
-      message: "Recruiter already has a company",
-
-      errors: {
-        company: ["Recruiter already has a company"],
-      },
-    });
+    throw new AppError("Recruiter already has a company", 409);
   }
 
   const newCompany = new Company({
@@ -58,7 +49,7 @@ export const getMyCompany = asyncHandler(async (req, res) => {
   const recruiter = req.user;
 
   if (!recruiter.company) {
-    throw new AppError("Recruiter has not created a company yet", 404);
+    throw new AppError("Recruiter has not created a company yet", 403);
   }
 
   const company = await Company.findById(recruiter.company);
@@ -87,7 +78,7 @@ export const updateCompany = asyncHandler(async (req, res) => {
   const recruiter = req.user;
 
   if (!recruiter.company) {
-    throw new AppError("Recruiter has not created a company yet", 404);
+    throw new AppError("Recruiter has not created a company yet", 403);
   }
 
   const updatedCompany = await Company.findByIdAndUpdate(
@@ -111,10 +102,7 @@ export const getCompanyById = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(400).json({
-      success: false,
-      message: "Invalid Company id",
-    });
+    throw new AppError("Invalid Company id", 400);
   }
 
   const company = await Company.findById(id);
