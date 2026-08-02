@@ -1,7 +1,9 @@
 import { Router } from "express";
 import {
   applyForJob,
+  getJobApplicants,
   getMyApplications,
+  updateApplicationStatus,
 } from "../controllers/applicationController.js";
 import { protect, restrictTo } from "../middleware/authMiddleware.js";
 
@@ -13,6 +15,18 @@ router.get(
   protect,
   restrictTo("candidate"),
   getMyApplications,
+);
+router.get(
+  "/jobs/:id/applicants",
+  protect,
+  restrictTo("recruiter"),
+  getJobApplicants,
+);
+router.patch(
+  "/applications/:id/status",
+  protect,
+  restrictTo("recruiter"),
+  updateApplicationStatus,
 );
 
 export default router;
