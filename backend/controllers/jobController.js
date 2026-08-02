@@ -116,7 +116,7 @@ export const getMyJobs = asyncHandler(async (req, res) => {
   const page = Number(req.query.page) || 1;
   const limit = Math.min(Number(req.query.limit) || 10, 100);
 
-  if (page < 1 || limit < 1 || Number.isNaN(page) || Number.isNaN(limit)) {
+  if (Number.isNaN(page) || Number.isNaN(limit) || page < 1 || limit < 1) {
     throw new AppError("Page and limit must be positive numbers", 400);
   }
 
