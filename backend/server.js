@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes.js";
 import companyRoutes from "./routes/companyRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 import { errorMiddleware } from "./middleware/errorMiddleware.js";
 dotenv.config({});
 
@@ -26,6 +27,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/companies", companyRoutes);
 app.use("/api/jobs", jobRoutes);
 app.use("/api", applicationRoutes);
+app.use("/api/profile", profileRoutes);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "UP", message: "Server is running smoothly" });
