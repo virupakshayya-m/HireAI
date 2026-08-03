@@ -65,7 +65,7 @@ export const uploadResume = asyncHandler(async (req, res) => {
     "hireai/resumes",
   );
 
-  const oldPublicId = req.user.profile.resume.publicId;
+  const oldPublicId = req.user.profile?.resume?.publicId;
 
   req.user.profile.resume = {
     url: uploadedResume.secure_url,

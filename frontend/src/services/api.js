@@ -11,11 +11,21 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
+    if (originalRequest.url.includes("/auth/refresh-token")) {
+      return Promise.reject(error);
+    }
+
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
       try {
-        await api.post("/auth/refresh-token");
+        await axios.post(
+          "http://localhost:5000/api/auth/refresh-token",
+          {},
+          {
+            withCredentials: true,
+          },
+        );
 
         return api(originalRequest);
       } catch (refreshError) {

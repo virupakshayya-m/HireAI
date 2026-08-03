@@ -1,4 +1,4 @@
-import pdf from "pdf-parse";
+import pdf from "@cedrugs/pdf-parse";
 import mammoth from "mammoth";
 
 export const extractResumeText = async (file) => {
