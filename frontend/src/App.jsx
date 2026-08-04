@@ -9,8 +9,10 @@ import PostJob from "@/pages/recruiter/PostJob";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 import { useAuth } from "@/context/AuthContext";
-import EditJob from "./pages/recruiter/EditJob";
-import CompanySetup from "./pages/recruiter/CompanySetup";
+import EditJob from "@/pages/recruiter/EditJob";
+import CompanySetup from "@/pages/recruiter/CompanySetup";
+import MyApplications from "@/pages/candidate/MyApplications";
+import JobApplicants from "@/pages/recruiter/JobApplicants";
 
 function App() {
   const { loading } = useAuth();
@@ -40,12 +42,19 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/jobs" element={<JobFeed />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
+        <Route element={<ProtectedRoute allowedRoles={["candidate"]} />}>
+          <Route path="/candidate/applications" element={<MyApplications />} />
+        </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["recruiter"]} />}>
           <Route path="/recruiter/jobs/new" element={<PostJob />} />
           <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
           <Route path="/recruiter/jobs/:id/edit" element={<EditJob />} />
           <Route path="/recruiter/company" element={<CompanySetup />} />
+          <Route
+            path="/recruiter/jobs/:id/applicants"
+            element={<JobApplicants />}
+          />
         </Route>
       </Routes>
     </>
