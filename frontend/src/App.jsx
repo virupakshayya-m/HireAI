@@ -13,6 +13,7 @@ import EditJob from "@/pages/recruiter/EditJob";
 import CompanySetup from "@/pages/recruiter/CompanySetup";
 import MyApplications from "@/pages/candidate/MyApplications";
 import JobApplicants from "@/pages/recruiter/JobApplicants";
+import CandidateProfile from "@/pages/candidate/CandidateProfile";
 
 function App() {
   const { loading } = useAuth();
@@ -44,6 +45,7 @@ function App() {
         <Route path="/jobs/:id" element={<JobDetails />} />
         <Route element={<ProtectedRoute allowedRoles={["candidate"]} />}>
           <Route path="/candidate/applications" element={<MyApplications />} />
+          <Route path="/candidate/profile" element={<CandidateProfile />} />
         </Route>
 
         <Route element={<ProtectedRoute allowedRoles={["recruiter"]} />}>

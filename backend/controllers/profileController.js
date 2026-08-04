@@ -26,10 +26,9 @@ export const updateMyProfile = asyncHandler(async (req, res) => {
 
   const user = req.user;
 
-  user.profile = {
-    ...user.profile,
-    ...validatedResult.data,
-  };
+  Object.keys(validatedResult.data).forEach((key) => {
+    user.profile[key] = validatedResult.data[key];
+  });
 
   await user.save();
 
