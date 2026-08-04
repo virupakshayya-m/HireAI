@@ -27,3 +27,23 @@ export const jobSchema = z
     experienceLevel: z.enum(["fresher", "junior", "mid", "senior"]),
   })
   .strict();
+
+export const updateJobSchema = z
+  .object({
+    title: z.string().trim().min(2).optional(),
+
+    description: z.string().trim().min(10).optional(),
+
+    requirements: z.array(z.string().trim().min(1)).min(1).optional(),
+
+    salary: z.coerce.number().positive().optional(),
+
+    location: z.string().trim().min(2).optional(),
+
+    employmentType: z
+      .enum(["full-time", "part-time", "internship", "contract", "remote"])
+      .optional(),
+
+    experienceLevel: z.enum(["fresher", "junior", "mid", "senior"]).optional(),
+  })
+  .strict();

@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { getMyJobs } from "@/services/jobService";
+import { getMyJobs, deleteJob } from "@/services/jobService";
 import JobFilters from "@/components/jobs/JobFilters";
 import Pagination from "@/components/common/Pagination";
 import RecruiterJobCard from "@/components/recruiter/RecruiterJobCard";
+import ConfirmationModal from "@/components/common/ConfirmationModal";
 
 const RecruiterDashboard = () => {
   const initialFilters = {
@@ -25,6 +26,10 @@ const RecruiterDashboard = () => {
   const [jobs, setJobs] = useState([]);
   const [pagination, setPagination] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   const fetchJobs = useCallback(async () => {
     try {
@@ -69,6 +74,32 @@ const RecruiterDashboard = () => {
       ...prev,
       page,
     }));
+  };
+
+  const handleDeleteClick = (job) => {
+    setSelectedJob(job);
+
+    setIsDeleteOpen(true);
+  };
+
+  const handleDelete = async () => {
+    try {
+      setDeleting(true);
+
+      const data = await deleteJob(selectedJob._id);
+
+      toast.success(data.message);
+
+      setJobs((prev) => prev.filter((job) => job._id !== selectedJob._id));
+
+      setIsDeleteOpen(false);
+
+      setSelectedJob(null);
+    } catch (error) {
+      toast.error(error.message || "Failed to delete job");
+    } finally {
+      setDeleting(false);
+    }
   };
 
   if (isLoading) {
@@ -124,7 +155,7 @@ const RecruiterDashboard = () => {
         <>
           <div className="mt-8 grid gap-6">
             {jobs.map((job) => (
-              <RecruiterJobCard key={job._id} job={job} />
+              <RecruiterJobCard key={job._id} job={job} onDelete={handleDeleteClick} />
             ))}
           </div>
 
@@ -137,6 +168,20 @@ const RecruiterDashboard = () => {
           )}
         </>
       )}
+
+      <ConfirmationModal
+        isOpen={isDeleteOpen}
+        title="Delete Job"
+        message="Are you sure you want to delete this job? This action cannot be undone."
+        confirmText="Delete"
+        loadingText="Deleting Job..."
+        loading={deleting}
+        onConfirm={handleDelete}
+        onCancel={() => {
+          setIsDeleteOpen(false);
+          setSelectedJob(null);
+        }}
+      />
     </div>
   );
 };

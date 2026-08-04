@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { MapPin, Briefcase, Users } from "lucide-react";
 
-const RecruiterJobCard = ({ job }) => {
+function RecruiterJobCard({ job, onDelete }) {
   return (
     <div className="rounded-xl border bg-white p-6 shadow-sm transition hover:shadow-md">
       {/* Job Title */}
@@ -38,16 +38,30 @@ const RecruiterJobCard = ({ job }) => {
 
       {/* Actions */}
 
-      <div className="mt-6">
+      <div className="mt-6 flex gap-3">
         <Link
           to={`/recruiter/jobs/${job._id}/applicants`}
-          className="rounded-lg bg-blue-600 px-5 py-2 text-white transition hover:bg-blue-700"
+          className="flex-1 rounded-lg bg-blue-600 px-4 py-2 text-center font-medium text-white transition hover:bg-blue-700"
         >
           View Applicants
         </Link>
+
+        <Link
+          to={`/recruiter/jobs/${job._id}/edit`}
+          className="rounded-lg border border-gray-300 px-4 py-2 font-medium text-gray-700 transition hover:bg-gray-100"
+        >
+          Edit
+        </Link>
+
+        <button
+          onClick={() => onDelete(job)}
+          className="rounded-lg bg-red-600 px-4 py-2 font-medium text-white transition hover:bg-red-700"
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
-};
+}
 
 export default RecruiterJobCard;

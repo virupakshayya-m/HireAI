@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
 
 import { loginUser } from "@/services/authService";
 
@@ -10,6 +11,9 @@ function Login() {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +31,8 @@ function Login() {
 
     try {
       const response = await loginUser(formData);
-      console.log(response);
+      setUser(response.user);
+      navigate("/jobs", { replace: true });
     } catch (error) {
       console.log(error);
     } finally {

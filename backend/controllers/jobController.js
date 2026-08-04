@@ -1,6 +1,7 @@
 import Job from "../models/jobModel.js";
 import Application from "../models/applicationModel.js";
 import { jobSchema } from "../validators/jobValidator.js";
+import { updateJobSchema } from "../validators/jobValidator.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
 import mongoose from "mongoose";
@@ -229,5 +230,74 @@ export const getJobById = asyncHandler(async (req, res) => {
   return res.status(200).json({
     success: true,
     job,
+  });
+});
+
+export const updateJob = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new AppError("Invalid job id", 400);
+  }
+
+  const validatedResult = updateJobSchema.safeParse(req.body);
+
+  if (!validatedResult.success) {
+    return res.status(400).json({
+      success: false,
+      message: "Validation failed",
+      errors: validatedResult.error.flatten().fieldErrors,
+    });
+  }
+
+  const job = await Job.findById(id);
+
+  if (!job) {
+    throw new AppError("Job not found", 404);
+  }
+
+  if (!job.createdBy.equals(req.user._id)) {
+    throw new AppError("You are not authorized to update this job", 403);
+  }
+
+  const updateData = validatedResult.data;
+
+  Object.assign(job, updateData);
+
+  const updatedJob = await job.save();
+
+  return res.status(200).json({
+    success: true,
+    message: "Job updated successfully",
+    job: updatedJob,
+  });
+});
+
+export const deleteJob = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new AppError("Invalid job id", 400);
+  }
+
+  const job = await Job.findById(id);
+
+  if (!job) {
+    throw new AppError("Job not found", 404);
+  }
+
+  if (!job.createdBy.equals(req.user._id)) {
+    throw new AppError("You are not authorized to delete this job", 403);
+  }
+
+  await Application.deleteMany({
+    job: job._id,
+  });
+
+  await job.deleteOne();
+
+  return res.status(200).json({
+    success: true,
+    message: "Job deleted successfully",
   });
 });

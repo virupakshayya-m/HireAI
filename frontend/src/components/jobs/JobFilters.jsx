@@ -1,6 +1,6 @@
 import { Search, RotateCcw } from "lucide-react";
-import { EMPLOYMENT_TYPES } from "@/utils/constants";
-import { EXPERIENCE_LEVELS } from "@/utils/constants";
+import { EMPLOYMENT_TYPES } from "@/constants/jobConstants";
+import { EXPERIENCE_LEVELS } from "@/constants/jobConstants";
 
 const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
   const handleChange = (e) => {
