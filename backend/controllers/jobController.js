@@ -1,4 +1,5 @@
 import Job from "../models/jobModel.js";
+import Application from "../models/applicationModel.js";
 import { jobSchema } from "../validators/jobValidator.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
@@ -160,17 +161,46 @@ export const getMyJobs = asyncHandler(async (req, res) => {
 
   const totalJobs = await Job.countDocuments(query);
 
+  const totalPages = Math.ceil(totalJobs / limit);
+
   const jobs = await Job.find(query)
     .populate("company", "name logo location")
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limit);
 
-  const totalPages = Math.ceil(totalJobs / limit);
+  const applicantCounts = await Application.aggregate([
+    {
+      $match: {
+        job: {
+          $in: jobs.map((job) => job._id),
+        },
+      },
+    },
+    {
+      $group: {
+        _id: "$job",
+        applicantCount: {
+          $sum: 1,
+        },
+      },
+    },
+  ]);
+
+  const applicantCountMap = {};
+
+  for (const item of applicantCounts) {
+    applicantCountMap[item._id.toString()] = item.applicantCount;
+  }
+
+  const jobsWithApplicantCount = jobs.map((job) => ({
+    ...job.toObject(),
+    applicantCount: applicantCountMap[job._id.toString()] || 0,
+  }));
 
   return res.status(200).json({
     success: true,
-    jobs,
+    jobs: jobsWithApplicantCount,
     pagination: {
       currentPage: page,
       limit,

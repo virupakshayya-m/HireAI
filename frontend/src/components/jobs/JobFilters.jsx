@@ -1,4 +1,6 @@
 import { Search, RotateCcw } from "lucide-react";
+import { EMPLOYMENT_TYPES } from "@/utils/constants";
+import { EXPERIENCE_LEVELS } from "@/utils/constants";
 
 const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
   const handleChange = (e) => {
@@ -63,10 +65,11 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
             className="w-full rounded-lg border p-2 outline-none focus:border-blue-500"
           >
             <option value="">All</option>
-            <option value="full-time">Full-Time</option>
-            <option value="part-time">Part-Time</option>
-            <option value="internship">Internship</option>
-            <option value="contract">Contract</option>
+            {EMPLOYMENT_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -82,10 +85,11 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
             className="w-full rounded-lg border p-2 outline-none focus:border-blue-500"
           >
             <option value="">All</option>
-            <option value="Fresher">Fresher</option>
-            <option value="Junior">Junior</option>
-            <option value="mid">Mid-Level</option>
-            <option value="senior">Senior</option>
+            {EXPERIENCE_LEVELS.map((level) => (
+              <option key={level} value={level}>
+                {level}
+              </option>
+            ))}
           </select>
         </div>
       </div>

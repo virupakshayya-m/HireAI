@@ -24,11 +24,11 @@ const JobFeed = () => {
   const [jobs, setJobs] = useState([]);
   const [pagination, setPagination] = useState(null);
 
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchJobs = useCallback(async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
 
       const data = await getAllJobs(appliedFilters);
 
@@ -37,13 +37,13 @@ const JobFeed = () => {
     } catch (error) {
       toast.error(error.message || "Failed to load jobs");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [appliedFilters]);
 
   useEffect(() => {
     fetchJobs();
-  }, [appliedFilters]);
+  }, [fetchJobs]);
 
   const handleApplyFilters = () => {
     setAppliedFilters({
@@ -70,7 +70,7 @@ const JobFeed = () => {
     }));
   };
 
-  if (loading) {
+  if (isLoading) {
     return <div className="py-20 text-center">Loading jobs...</div>;
   }
 

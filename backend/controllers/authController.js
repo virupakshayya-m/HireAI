@@ -114,7 +114,7 @@ export const refreshToken = asyncHandler(async (req, res) => {
   try {
     decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
   } catch (error) {
-    if (error.name == "TokenExpiredError") {
+    if (error.name === "TokenExpiredError") {
       throw new AppError("jwt expired", 401);
     }
     throw new AppError("Not authorized, invalid token", 401);

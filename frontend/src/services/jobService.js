@@ -8,6 +8,18 @@ export const getAllJobs = async (filters = {}) => {
   return response.data;
 };
 
+export const getMyJobs = async (params = {}) => {
+  try {
+    const response = await api.get("/jobs/me", {
+      params,
+    });
+
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};
+
 export const getJobById = async (id) => {
   const response = await api.get(`/jobs/${id}`);
 
@@ -18,4 +30,14 @@ export const applyForJob = async (id) => {
   const response = await api.post(`/jobs/${id}/apply`);
 
   return response.data;
+};
+
+export const createJob = async (jobData) => {
+  try {
+    const response = await api.post("/jobs", jobData);
+
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
 };

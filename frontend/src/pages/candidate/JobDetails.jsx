@@ -7,14 +7,14 @@ const JobDetails = () => {
   const { id } = useParams();
 
   const [job, setJob] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
   const [applying, setApplying] = useState(false);
 
   const fetchJob = async () => {
     try {
-      setLoading(true);
+      setIsLoading(true);
       setError("");
 
       const data = await getJobById(id);
@@ -23,7 +23,7 @@ const JobDetails = () => {
     } catch (error) {
       setError(error.message || "Failed to load job");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -31,7 +31,7 @@ const JobDetails = () => {
     fetchJob();
   }, [id]);
 
-  if (loading) {
+  if (isLoading) {
     return <h2>Loading...</h2>;
   }
 
