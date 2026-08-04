@@ -10,6 +10,7 @@ import ProtectedRoute from "@/components/auth/ProtectedRoute";
 
 import { useAuth } from "@/context/AuthContext";
 import EditJob from "./pages/recruiter/EditJob";
+import CompanySetup from "./pages/recruiter/CompanySetup";
 
 function App() {
   const { loading } = useAuth();
@@ -44,6 +45,7 @@ function App() {
           <Route path="/recruiter/jobs/new" element={<PostJob />} />
           <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
           <Route path="/recruiter/jobs/:id/edit" element={<EditJob />} />
+          <Route path="/recruiter/company" element={<CompanySetup />} />
         </Route>
       </Routes>
     </>
