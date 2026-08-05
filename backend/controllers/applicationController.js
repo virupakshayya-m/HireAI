@@ -4,6 +4,7 @@ import { updateApplicationStatusSchema } from "../validators/applicationValidato
 import { asyncHandler } from "../utils/asyncHandler.js";
 import AppError from "../utils/AppError.js";
 import mongoose from "mongoose";
+import { evaluateCandidate } from "../services/aiService.js";
 
 export const applyForJob = asyncHandler(async (req, res) => {
   const { id } = req.params;
@@ -12,7 +13,7 @@ export const applyForJob = asyncHandler(async (req, res) => {
     throw new AppError("Invalid job id", 400);
   }
 
-  const job = await Job.findById(id).select("company").lean();
+  const job = await Job.findById(id).select("company description requirements").lean();
 
   if (!job) {
     throw new AppError("Job not found", 404);
@@ -27,10 +28,18 @@ export const applyForJob = asyncHandler(async (req, res) => {
     throw new AppError("You have already applied for this job", 409);
   }
 
+  // AI Integration: Evaluate candidate against job description
+  const jobText = `${job.description} ${job.requirements?.join(", ") || ""}`;
+  const candidateResume = req.user.profile?.resume?.extractedText || "";
+  const candidateSkills = req.user.profile?.skills || [];
+  
+  const aiInsights = await evaluateCandidate(candidateResume, candidateSkills, jobText);
+
   const newApplication = new Application({
     candidate: req.user._id,
     job: job._id,
     company: job.company,
+    aiInsights
   });
 
   const savedApplication = await newApplication.save();

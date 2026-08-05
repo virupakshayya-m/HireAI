@@ -25,6 +25,15 @@ const applicationSchema = new mongoose.Schema(
       enum: ["pending", "shortlisted", "accepted", "rejected"],
       default: "pending",
     },
+
+    aiInsights: {
+      matchScore: { type: Number, default: 0 },
+      strengths: { type: [String], default: [] },
+      weaknesses: { type: [String], default: [] },
+      missingSkills: { type: [String], default: [] },
+      summary: { type: String, default: "" },
+      interviewQuestions: { type: [String], default: [] },
+    },
   },
   {
     timestamps: true,

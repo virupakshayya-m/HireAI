@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { getJobApplicants, updateApplicationStatus } from "@/services/applicationService";
@@ -7,6 +7,7 @@ const JobApplicants = () => {
   const { id } = useParams(); // This is the jobId from the URL
   const [applicants, setApplicants] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
     fetchApplicants();
@@ -88,38 +89,107 @@ const JobApplicants = () => {
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Candidate</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Applied Date</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">AI Match</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Status</th>
                 <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Update Status</th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {applicants.map((app) => (
-                <tr key={app._id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex flex-col">
-                      <span className="font-medium text-gray-900">{app.candidate?.name || "Unknown"}</span>
-                      <span className="text-sm text-gray-500">{app.candidate?.email || "No Email"}</span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {new Date(app.createdAt).toLocaleDateString()}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    {getStatusBadge(app.status)}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <select
-                      value={app.status}
-                      onChange={(e) => handleStatusChange(app._id, e.target.value)}
-                      className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border bg-white cursor-pointer shadow-sm"
-                    >
-                      <option value="pending">Pending</option>
-                      <option value="shortlisted">Shortlisted</option>
-                      <option value="accepted">Accepted</option>
-                      <option value="rejected">Rejected</option>
-                    </select>
-                  </td>
-                </tr>
+                <React.Fragment key={app._id}>
+                  <tr className="hover:bg-gray-50">
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="flex flex-col">
+                        <span className="font-medium text-gray-900">{app.candidate?.name || "Unknown"}</span>
+                        <span className="text-sm text-gray-500">{app.candidate?.email || "No Email"}</span>
+                        {app.aiInsights && app.aiInsights.matchScore > 0 && (
+                          <button
+                            onClick={() => setExpandedId(expandedId === app._id ? null : app._id)}
+                            className="text-indigo-600 text-xs text-left mt-1 hover:underline"
+                          >
+                            {expandedId === app._id ? "Hide AI Insights" : "View AI Insights"}
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {new Date(app.createdAt).toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {app.aiInsights && app.aiInsights.matchScore > 0 ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                            <div 
+                              className={`h-full ${app.aiInsights.matchScore > 75 ? 'bg-green-500' : app.aiInsights.matchScore > 50 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                              style={{ width: `${app.aiInsights.matchScore}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-sm font-medium">{app.aiInsights.matchScore}%</span>
+                        </div>
+                      ) : (
+                        <span className="text-sm text-gray-400">N/A</span>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      {getStatusBadge(app.status)}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <select
+                        value={app.status}
+                        onChange={(e) => handleStatusChange(app._id, e.target.value)}
+                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border bg-white cursor-pointer shadow-sm"
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="shortlisted">Shortlisted</option>
+                        <option value="accepted">Accepted</option>
+                        <option value="rejected">Rejected</option>
+                      </select>
+                    </td>
+                  </tr>
+                  
+                  {/* Expandable Row for AI Insights */}
+                  {expandedId === app._id && app.aiInsights && (
+                    <tr className="bg-indigo-50/30 border-b border-gray-100">
+                      <td colSpan={5} className="px-6 py-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            <h4 className="font-semibold text-gray-900 mb-2">AI Summary</h4>
+                            <p className="text-sm text-gray-700 leading-relaxed mb-4">{app.aiInsights.summary}</p>
+                            
+                            <h4 className="font-semibold text-gray-900 mb-2 mt-4">Suggested Interview Questions</h4>
+                            <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                              {app.aiInsights.interviewQuestions?.map((q, i) => (
+                                <li key={i}>{q}</li>
+                              ))}
+                            </ul>
+                          </div>
+                          
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <h4 className="font-semibold text-green-700 mb-2">Strengths</h4>
+                              <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                {app.aiInsights.strengths?.map((s, i) => (
+                                  <li key={i}>{s}</li>
+                                ))}
+                              </ul>
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-red-700 mb-2">Weaknesses / Missing</h4>
+                              <ul className="list-disc pl-5 text-sm text-gray-700 space-y-1">
+                                {app.aiInsights.weaknesses?.map((w, i) => (
+                                  <li key={i}>{w}</li>
+                                ))}
+                                {app.aiInsights.missingSkills?.map((m, i) => (
+                                  <li key={`ms-${i}`}>Missing: {m}</li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                </React.Fragment>
               ))}
             </tbody>
           </table>

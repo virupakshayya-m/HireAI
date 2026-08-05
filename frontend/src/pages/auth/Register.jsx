@@ -1,16 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 import { USER_ROLES } from "@/utils/constants";
 import { registerUser } from "@/services/authService";
 
 function Register() {
+  const navigate = useNavigate();
   const [role, setRole] = useState(USER_ROLES.CANDIDATE);
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    company: "",
     password: "",
     confirmPassword: "",
   });
@@ -29,13 +30,21 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
     setIsLoading(true);
 
     try {
-      const response = await registerUser({ ...formData, role });
-      console.log(response);
+      // Strip out confirmPassword since the backend schema is strict
+      const { confirmPassword, ...dataToSend } = formData;
+      await registerUser({ ...dataToSend, role });
+      toast.success("Registration successful! Please login.");
+      navigate("/login");
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Registration failed");
     } finally {
       setIsLoading(false);
     }
@@ -132,28 +141,6 @@ function Register() {
                 </button>
               </div>
             </div>
-
-            {role === "recruiter" && (
-              <div>
-                <label
-                  htmlFor="company"
-                  className="block text-sm font-medium text-slate-700 mb-2"
-                >
-                  Company Name
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  value={formData.company}
-                  onChange={handleChange}
-                  placeholder="Enter your company name"
-                  required
-                  autoComplete="organization"
-                  className="input"
-                />
-              </div>
-            )}
 
             <div>
               <label
