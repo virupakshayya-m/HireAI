@@ -4,6 +4,7 @@ import JobFilters from "@/components/jobs/JobFilters";
 import JobCard from "@/components/jobs/JobCard";
 import Pagination from "@/components/common/Pagination";
 import toast from "react-hot-toast";
+import { SearchX } from "lucide-react";
 
 const initialFilters = {
   keyword: "",
@@ -71,7 +72,29 @@ const JobFeed = () => {
   };
 
   if (isLoading) {
-    return <div className="py-20 text-center">Loading jobs...</div>;
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        <div className="mb-8 card p-6 animate-pulse bg-slate-100/50 h-48"></div>
+        <div className="grid gap-6">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="card p-6 animate-pulse">
+              <div className="flex gap-4 mb-6">
+                <div className="w-14 h-14 bg-slate-200 rounded-lg"></div>
+                <div className="space-y-3">
+                  <div className="h-5 bg-slate-200 rounded w-48"></div>
+                  <div className="h-4 bg-slate-200 rounded w-32"></div>
+                </div>
+              </div>
+              <div className="flex gap-3">
+                <div className="h-8 bg-slate-200 rounded-full w-24"></div>
+                <div className="h-8 bg-slate-200 rounded-full w-24"></div>
+                <div className="h-8 bg-slate-200 rounded-full w-24"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -84,12 +107,17 @@ const JobFeed = () => {
       />
 
       {jobs.length === 0 ? (
-        <div className="rounded-xl border bg-white py-16 text-center shadow-sm">
-          <h2 className="text-xl font-semibold">No Jobs Found</h2>
-
-          <p className="mt-2 text-gray-500">
-            Try changing your search filters.
+        <div className="card py-16 flex flex-col items-center justify-center text-center">
+          <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mb-4">
+            <SearchX className="w-8 h-8 text-slate-400" />
+          </div>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">No Jobs Found</h2>
+          <p className="text-slate-500 max-w-md mx-auto">
+            We couldn't find any jobs matching your current filters. Try adjusting your search keywords or location.
           </p>
+          <button onClick={handleResetFilters} className="btn-secondary mt-6">
+            Clear all filters
+          </button>
         </div>
       ) : (
         <div className="mt-8 grid gap-6">

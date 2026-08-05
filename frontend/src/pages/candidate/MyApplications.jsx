@@ -57,8 +57,22 @@ const MyApplications = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <p className="text-gray-500">Loading your applications...</p>
+      <div className="max-w-5xl mx-auto p-6 mt-8">
+        <div className="h-10 bg-slate-200 rounded w-48 mb-8 animate-pulse"></div>
+        <div className="card overflow-hidden">
+          <div className="h-12 bg-slate-100 border-b border-slate-200 animate-pulse"></div>
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="h-20 border-b border-slate-100 bg-white animate-pulse p-4 flex items-center justify-between">
+              <div className="space-y-2">
+                <div className="h-4 bg-slate-200 rounded w-32"></div>
+                <div className="h-3 bg-slate-200 rounded w-24"></div>
+              </div>
+              <div className="h-4 bg-slate-200 rounded w-20"></div>
+              <div className="h-4 bg-slate-200 rounded w-24"></div>
+              <div className="h-6 bg-slate-200 rounded-full w-20"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -68,18 +82,18 @@ const MyApplications = () => {
       <h1 className="text-3xl font-bold mb-8">My Applications</h1>
 
       {applications.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-100">
-          <h2 className="text-xl font-medium text-gray-700">No applications yet!</h2>
-          <p className="text-gray-500 mt-2">Start browsing jobs and apply to see them here.</p>
+        <div className="card py-16 flex flex-col items-center justify-center text-center">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">No applications yet!</h2>
+          <p className="text-slate-500 mb-6">Start browsing jobs and apply to see them here.</p>
           <Link
             to="/jobs"
-            className="mt-4 inline-block bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition"
+            className="btn-primary"
           >
             Browse Jobs
           </Link>
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
+        <div className="card overflow-hidden border-0">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -115,7 +129,7 @@ const MyApplications = () => {
                         {app.aiInsights && app.aiInsights.matchScore > 0 && (
                           <button
                             onClick={() => setExpandedId(expandedId === app._id ? null : app._id)}
-                            className="text-indigo-600 text-xs text-left mt-1 hover:underline"
+                            className="text-blue-600 font-medium text-xs text-left mt-1 hover:text-blue-700 transition-colors"
                           >
                             {expandedId === app._id ? "Hide Feedback" : "View AI Feedback"}
                           </button>
@@ -146,7 +160,7 @@ const MyApplications = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Link
                         to={`/jobs/${app.job?._id}`}
-                        className="text-indigo-600 hover:text-indigo-900"
+                        className="text-blue-600 hover:text-blue-800 transition-colors"
                       >
                         View Job
                       </Link>
@@ -155,7 +169,7 @@ const MyApplications = () => {
 
                   {/* Expandable Row for Candidate AI Feedback */}
                   {expandedId === app._id && app.aiInsights && (
-                    <tr className="bg-indigo-50/30 border-b border-gray-100">
+                    <tr className="bg-blue-50/50 border-b border-slate-100">
                       <td colSpan={5} className="px-6 py-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl">
                           <div>

@@ -1,48 +1,62 @@
 import { Link } from "react-router-dom";
+import { MapPin, Briefcase, Clock, ChevronRight } from "lucide-react";
 
 const JobCard = ({ job }) => {
   return (
     <Link
       to={`/jobs/${job._id}`}
-      className="block rounded-lg border p-5 hover:shadow-lg transition"
+      className="block card p-6 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 transition-all duration-200 group"
     >
-      <div className="flex items-center gap-4">
-        {job.company.logo ? (
-          <img
-            src={job.company.logo}
-            alt={job.company.name}
-            className="h-12 w-12 rounded object-cover"
-          />
-        ) : (
-          <div className="flex h-12 w-12 items-center justify-center rounded bg-gray-200 text-lg font-semibold">
-            {job.company.name.charAt(0).toUpperCase()}
+      <div className="flex items-start justify-between">
+        <div className="flex items-center gap-4">
+          {job.company.logo ? (
+            <img
+              src={job.company.logo}
+              alt={job.company.name}
+              className="h-14 w-14 rounded-lg object-cover border border-slate-100 shadow-sm"
+            />
+          ) : (
+            <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-blue-50 text-xl font-bold text-blue-600 border border-blue-100 shadow-sm">
+              {job.company.name.charAt(0).toUpperCase()}
+            </div>
+          )}
+
+          <div>
+            <h2 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">
+              {job.title}
+            </h2>
+            <p className="text-slate-500 font-medium mt-1">
+              {job.company.name}
+            </p>
           </div>
-        )}
-
-        <div>
-          <h2 className="text-lg font-semibold">
-            {job.title}
-          </h2>
-
-          <p className="text-gray-600">
-            {job.company.name}
-          </p>
+        </div>
+        
+        <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full bg-slate-50 group-hover:bg-blue-50 transition-colors">
+          <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-blue-600 transition-colors" />
         </div>
       </div>
 
-      <div className="mt-4 flex flex-wrap gap-2 text-sm text-gray-600">
-        <span>{job.location}</span>
-        <span>•</span>
-        <span>{job.employmentType}</span>
-        <span>•</span>
-        <span>{job.experienceLevel}</span>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-medium">
+          <MapPin className="w-4 h-4" />
+          {job.location}
+        </div>
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm font-medium">
+          <Briefcase className="w-4 h-4" />
+          {job.employmentType}
+        </div>
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-sm font-medium">
+          <Clock className="w-4 h-4" />
+          {job.experienceLevel}
+        </div>
       </div>
-
-      <div className="mt-4">
-        <span className="text-blue-600 font-medium">
-          View Details →
-        </span>
-      </div>
+      
+      {job.salary && (
+        <div className="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between">
+          <span className="text-slate-500 text-sm">Salary</span>
+          <span className="font-semibold text-slate-900">${job.salary.toLocaleString()}</span>
+        </div>
+      )}
     </Link>
   );
 };

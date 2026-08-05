@@ -98,8 +98,12 @@ const CandidateProfile = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <p className="text-gray-500">Loading your profile...</p>
+      <div className="max-w-4xl mx-auto p-6 mt-8 space-y-8">
+        <div className="h-10 bg-slate-200 rounded w-48 animate-pulse mb-8"></div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="md:col-span-2 card p-6 h-96 animate-pulse"></div>
+          <div className="card p-6 h-64 animate-pulse"></div>
+        </div>
       </div>
     );
   }
@@ -113,8 +117,8 @@ const CandidateProfile = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Left Column: Basic Info */}
-        <div className="md:col-span-2 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <h2 className="text-xl font-semibold mb-6">Basic Information</h2>
+        <div className="md:col-span-2 card p-6 md:p-8">
+          <h2 className="text-xl font-bold mb-6 text-slate-900">Basic Information</h2>
           
           <form onSubmit={handleProfileUpdate} className="space-y-6">
             <div>
@@ -125,7 +129,7 @@ const CandidateProfile = () => {
                 rows={4}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm border p-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="input bg-slate-50"
                 placeholder="Tell recruiters a little bit about yourself..."
               />
             </div>
@@ -138,7 +142,7 @@ const CandidateProfile = () => {
                 type="text"
                 value={skillsText}
                 onChange={(e) => setSkillsText(e.target.value)}
-                className="w-full rounded-md border-gray-300 shadow-sm border p-3 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="input bg-slate-50"
                 placeholder="e.g., React, Node.js, Python, Project Management"
               />
             </div>
@@ -147,7 +151,7 @@ const CandidateProfile = () => {
               <button
                 type="submit"
                 disabled={isSaving}
-                className="bg-indigo-600 text-white px-6 py-2 rounded-md font-medium hover:bg-indigo-700 transition disabled:opacity-50"
+                className="btn-primary"
               >
                 {isSaving ? "Saving..." : "Save Changes"}
               </button>
@@ -156,8 +160,8 @@ const CandidateProfile = () => {
         </div>
 
         {/* Right Column: Resume Upload */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 h-fit">
-          <h2 className="text-xl font-semibold mb-6">Resume</h2>
+        <div className="card p-6 md:p-8 h-fit">
+          <h2 className="text-xl font-bold mb-6 text-slate-900">Resume</h2>
           
           <div className="space-y-6">
             {resumeUrl ? (
@@ -170,7 +174,7 @@ const CandidateProfile = () => {
                   href={resumeUrl} 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
                 >
                   View Current Resume &rarr;
                 </a>
@@ -192,11 +196,11 @@ const CandidateProfile = () => {
                   accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                   onChange={handleResumeUpload}
                   disabled={isUploading}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 disabled:opacity-50 cursor-pointer"
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 cursor-pointer"
                 />
                 {isUploading && (
                   <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                    <span className="text-sm text-indigo-600 font-medium animate-pulse">Uploading...</span>
+                    <span className="text-sm text-blue-600 font-medium animate-pulse">Uploading...</span>
                   </div>
                 )}
               </div>
