@@ -113,10 +113,10 @@ function Register() {
                 <button
                   type="button"
                   onClick={() => setRole("candidate")}
-                  className={`cursor-pointer rounded-xl border p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-indigo-500/20 ${
+                  className={`cursor-pointer rounded-xl border p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
                     role === "candidate"
-                      ? "border-indigo-600 bg-indigo-50"
-                      : "border-slate-300 hover:border-indigo-400 hover:bg-slate-50"
+                      ? "border-blue-600 bg-blue-50"
+                      : "border-slate-300 hover:border-blue-400 hover:bg-slate-50"
                   }`}
                 >
                   <h3 className="font-semibold">👤 Candidate</h3>
@@ -128,10 +128,10 @@ function Register() {
                 <button
                   type="button"
                   onClick={() => setRole("recruiter")}
-                  className={`cursor-pointer rounded-xl border p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-indigo-500/20 ${
+                  className={`cursor-pointer rounded-xl border p-4 text-left transition focus:outline-none focus:ring-2 focus:ring-blue-500/20 ${
                     role === "recruiter"
-                      ? "border-indigo-600 bg-indigo-50"
-                      : "border-slate-300 hover:border-indigo-400 hover:bg-slate-50"
+                      ? "border-blue-600 bg-blue-50"
+                      : "border-slate-300 hover:border-blue-400 hover:bg-slate-50"
                   }`}
                 >
                   <h3 className="font-semibold">🏢 Recruiter</h3>
@@ -185,7 +185,7 @@ function Register() {
             <button
               type="submit"
               disabled={isLoading}
-              className="cursor-pointer w-full rounded-lg bg-indigo-600 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full py-3"
             >
               {isLoading? "Creating Account...": "Create Account"}
             </button>
@@ -194,7 +194,7 @@ function Register() {
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-medium text-indigo-600 hover:underline"
+                className="font-medium text-blue-600 hover:underline"
               >
                 Login
               </Link>

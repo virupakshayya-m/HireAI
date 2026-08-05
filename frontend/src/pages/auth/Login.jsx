@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
 
 import { loginUser } from "@/services/authService";
@@ -32,9 +33,10 @@ function Login() {
     try {
       const response = await loginUser(formData);
       setUser(response.user);
+      toast.success("Welcome back!");
       navigate("/jobs", { replace: true });
     } catch (error) {
-      console.log(error);
+      toast.error(error.message || "Failed to login");
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +100,7 @@ function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="cursor-pointer w-full rounded-lg bg-indigo-600 py-3 font-semibold text-white transition hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-primary w-full py-3"
             >
               {isLoading ? "Logging in..." : "Login"}
             </button>
@@ -107,7 +109,7 @@ function Login() {
               Don't have an account?{" "}
               <Link
                 to="/register"
-                className="font-medium text-indigo-600 hover:underline"
+                className="font-medium text-blue-600 hover:underline"
               >
                 Register
               </Link>
