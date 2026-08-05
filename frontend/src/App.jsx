@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
 
+import Home from "@/pages/Home";
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import JobFeed from "@/pages/candidate/JobFeed";
@@ -36,6 +37,7 @@ function App() {
     <Layout>
 
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />}></Route>
         <Route path="/register" element={<Register />}></Route>
         <Route path="/jobs" element={<JobFeed />} />

@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { getJobById, applyForJob } from "../../services/jobService";
 import toast from "react-hot-toast";
 import { ArrowLeft, MapPin, Briefcase, Clock, Building2, ExternalLink } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const JobDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
   const [job, setJob] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -56,6 +59,11 @@ const JobDetails = () => {
   }
 
   const handleApply = async () => {
+    if (!user) {
+      toast("Please log in to apply for this job.", { icon: "👋" });
+      return navigate("/login");
+    }
+
     try {
       setApplying(true);
 
@@ -109,13 +117,15 @@ const JobDetails = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 md:shrink-0">
-            <button
-              onClick={handleApply}
-              disabled={applying}
-              className="btn-primary py-3 px-8 text-lg shadow-md shadow-blue-500/20"
-            >
-              {applying ? "Applying..." : "Apply Now"}
-            </button>
+            {user?.role !== "recruiter" && (
+              <button
+                onClick={handleApply}
+                disabled={applying}
+                className="btn-primary py-3 px-8 text-lg shadow-md shadow-blue-500/20"
+              >
+                {applying ? "Applying..." : "Apply Now"}
+              </button>
+            )}
           </div>
         </div>
 
