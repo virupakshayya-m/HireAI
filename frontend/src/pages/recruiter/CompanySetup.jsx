@@ -6,9 +6,11 @@ import {
   getMyCompany,
   updateCompany,
 } from "@/services/companyService";
+import { useAuth } from "@/context/AuthContext";
 
 const CompanySetup = () => {
   const navigate = useNavigate();
+  const { refreshUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
@@ -70,6 +72,7 @@ const CompanySetup = () => {
         toast.success("Company created successfully!");
         setIsEditing(true);
       }
+      await refreshUser(); // Update global user state with new company
       navigate("/recruiter/dashboard"); // Send them back to dashboard after saving
     } catch (error) {
       toast.error(error.message || "Something went wrong");

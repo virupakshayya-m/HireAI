@@ -42,20 +42,24 @@ function App() {
         <Route path="/register" element={<Register />}></Route>
         <Route path="/jobs" element={<JobFeed />} />
         <Route path="/jobs/:id" element={<JobDetails />} />
+        
         <Route element={<ProtectedRoute allowedRoles={["candidate"]} />}>
           <Route path="/candidate/applications" element={<MyApplications />} />
           <Route path="/candidate/profile" element={<CandidateProfile />} />
         </Route>
 
-        <Route element={<ProtectedRoute allowedRoles={["recruiter"]} />}>
+        <Route element={<ProtectedRoute allowedRoles={["recruiter"]} requireOnboarding={true} />}>
           <Route path="/recruiter/jobs/new" element={<PostJob />} />
           <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
           <Route path="/recruiter/jobs/:id/edit" element={<EditJob />} />
-          <Route path="/recruiter/company" element={<CompanySetup />} />
           <Route
             path="/recruiter/jobs/:id/applicants"
             element={<JobApplicants />}
           />
+        </Route>
+        
+        <Route element={<ProtectedRoute allowedRoles={["recruiter"]} />}>
+          <Route path="/recruiter/company" element={<CompanySetup />} />
         </Route>
       </Routes>
     </Layout>

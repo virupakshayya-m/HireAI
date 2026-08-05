@@ -35,8 +35,8 @@ const Home = () => {
                 <Link to="/jobs" className="btn-primary text-lg py-4 px-8 shadow-lg shadow-blue-500/30">
                   Find Jobs Now
                 </Link>
-                <Link to="/register" className="btn-secondary text-lg py-4 px-8 shadow-sm">
-                  I'm a Recruiter
+                <Link to="/login" className="btn-secondary text-lg py-4 px-8 shadow-sm">
+                  Post a Job
                 </Link>
               </>
             )}

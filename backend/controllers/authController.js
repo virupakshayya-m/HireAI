@@ -97,6 +97,8 @@ export const loginUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      profile: user.profile,
+      company: user.company,
       accessToken,
       refreshToken,
     },

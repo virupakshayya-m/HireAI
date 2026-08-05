@@ -25,6 +25,7 @@ const Navbar = () => {
     if (!user) {
       return (
         <>
+          <Link to="/jobs" className={`font-medium transition-colors ${location.pathname === '/jobs' ? 'text-blue-600' : 'text-slate-600 hover:text-blue-600'}`}>Find Jobs</Link>
           <Link to="/login" className="text-slate-600 hover:text-blue-600 font-medium transition-colors">Log in</Link>
           <Link to="/register" className="btn-primary">Sign up</Link>
         </>

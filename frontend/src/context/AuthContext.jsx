@@ -22,6 +22,15 @@ export const AuthProvider = ({ children }) => {
     loadUser();
   }, []);
 
+  const refreshUser = async () => {
+    try {
+      const data = await getCurrentUser();
+      setUser(data.user);
+    } catch (error) {
+      console.error("Failed to refresh user:", error);
+    }
+  };
+
   const logout = async () => {
     try {
       await logoutUser();
@@ -33,7 +42,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, logout }}>
+    <AuthContext.Provider value={{ user, setUser, loading, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

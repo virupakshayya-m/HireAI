@@ -4,6 +4,7 @@ import { getJobById, applyForJob } from "../../services/jobService";
 import toast from "react-hot-toast";
 import { ArrowLeft, MapPin, Briefcase, Clock, Building2, ExternalLink } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
+import { isCandidateProfileComplete } from "@/utils/onboarding";
 
 const JobDetails = () => {
   const { id } = useParams();
@@ -62,6 +63,11 @@ const JobDetails = () => {
     if (!user) {
       toast("Please log in to apply for this job.", { icon: "👋" });
       return navigate("/login");
+    }
+
+    if (user.role === "candidate" && !isCandidateProfileComplete(user)) {
+      toast.error("Please upload your resume before applying.");
+      return navigate("/candidate/profile");
     }
 
     try {

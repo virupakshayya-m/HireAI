@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { getMyProfile, updateMyProfile, uploadResume } from "@/services/profileService";
+import { useAuth } from "@/context/AuthContext";
 
 const CandidateProfile = () => {
+  const { refreshUser } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
@@ -54,6 +56,7 @@ const CandidateProfile = () => {
         skills: skillsArray,
       });
 
+      await refreshUser();
       toast.success("Profile updated successfully!");
     } catch (error) {
       toast.error(error.message || "Failed to update profile");
@@ -86,6 +89,7 @@ const CandidateProfile = () => {
     try {
       const data = await uploadResume(formData);
       setResumeUrl(data.resume.url);
+      await refreshUser();
       toast.success("Resume uploaded successfully!");
     } catch (error) {
       toast.error(error.message || "Failed to upload resume");

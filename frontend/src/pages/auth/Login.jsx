@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/AuthContext";
-
+import { getOnboardingRedirectPath, isCandidateProfileComplete } from "@/utils/onboarding";
 import { loginUser } from "@/services/authService";
 
 function Login() {
@@ -33,8 +33,24 @@ function Login() {
     try {
       const response = await loginUser(formData);
       setUser(response.user);
-      toast.success("Welcome back!");
-      navigate("/jobs", { replace: true });
+      
+      const redirectPath = getOnboardingRedirectPath(response.user);
+
+      if (redirectPath) {
+        toast.success("Welcome! Let's get you set up.");
+        navigate(redirectPath, { replace: true });
+      } else {
+        toast.success("Welcome back!");
+        
+        if (response.user.role === "candidate" && !isCandidateProfileComplete(response.user)) {
+          toast("Complete your profile and upload your resume before applying for jobs.", {
+            icon: "ℹ️",
+            duration: 6000,
+          });
+        }
+        
+        navigate(response.user.role === "recruiter" ? "/recruiter/dashboard" : "/jobs", { replace: true });
+      }
     } catch (error) {
       toast.error(error.message || "Failed to login");
     } finally {
