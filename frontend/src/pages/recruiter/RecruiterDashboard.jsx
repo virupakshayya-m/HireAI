@@ -20,7 +20,7 @@ const RecruiterDashboard = () => {
   const [appliedFilters, setAppliedFilters] = useState({
     ...initialFilters,
     page: 1,
-    limit: 2,
+    limit: 10,
   });
 
   const [jobs, setJobs] = useState([]);
@@ -55,7 +55,7 @@ const RecruiterDashboard = () => {
     setAppliedFilters({
       ...filters,
       page: 1,
-      limit: 2,
+      limit: 10,
     });
   };
 
@@ -65,7 +65,7 @@ const RecruiterDashboard = () => {
     setAppliedFilters({
       ...initialFilters,
       page: 1,
-      limit: 2,
+      limit: 10,
     });
   };
 
