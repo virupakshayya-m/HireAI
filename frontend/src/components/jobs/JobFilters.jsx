@@ -13,14 +13,12 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
   };
 
   return (
-    <div className="mb-8 card p-6">
-      <h2 className="mb-6 text-2xl font-bold">Search Jobs</h2>
-
-      <div className="grid gap-4 lg:grid-cols-4">
-        {/* Keyword */}
-
-        <div className="lg:col-span-4">
-          <label className="mb-2 block text-sm font-medium">Search</label>
+    <div className="mb-6 card p-4 md:p-5">
+      <form onSubmit={(e) => { e.preventDefault(); onApply(); }} className="flex flex-col gap-4">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-12 items-end">
+          {/* Keyword */}
+          <div className="lg:col-span-4">
+            <label className="mb-1.5 block text-sm font-medium text-slate-700">Search</label>
 
           <div className="relative">
             <Search size={18} className="absolute left-3 top-3 text-gray-400" />
@@ -36,10 +34,8 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
           </div>
         </div>
 
-        {/* Location */}
-
-        <div>
-          <label className="mb-2 block text-sm font-medium">Location</label>
+          <div className="lg:col-span-3">
+            <label className="mb-1.5 block text-sm font-medium text-slate-700">Location</label>
 
           <input
             type="text"
@@ -51,12 +47,10 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
           />
         </div>
 
-        {/* Employment */}
-
-        <div>
-          <label className="mb-2 block text-sm font-medium">
-            Employment Type
-          </label>
+          <div className="lg:col-span-2">
+            <label className="mb-1.5 block text-sm font-medium text-slate-700">
+              Employment
+            </label>
 
           <select
             name="employmentType"
@@ -73,10 +67,8 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
           </select>
         </div>
 
-        {/* Experience */}
-
-        <div>
-          <label className="mb-2 block text-sm font-medium">Experience</label>
+          <div className="lg:col-span-3">
+            <label className="mb-1.5 block text-sm font-medium text-slate-700">Experience</label>
 
           <select
             name="experienceLevel"
@@ -93,25 +85,25 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
           </select>
         </div>
       </div>
+        
+      <div className="flex justify-end gap-3 mt-1">
+          <button
+            type="button"
+            onClick={onReset}
+            className="btn-secondary py-2"
+          >
+            <RotateCcw size={16} className="mr-2" />
+            Reset
+          </button>
 
-      <div className="mt-6 flex justify-end gap-3 pt-6 border-t border-slate-100">
-        <button
-          type="button"
-          onClick={onReset}
-          className="btn-secondary"
-        >
-          <RotateCcw size={18} className="mr-2" />
-          Reset
-        </button>
-
-        <button
-          type="button"
-          onClick={onApply}
-          className="btn-primary"
-        >
-          Apply Filters
-        </button>
-      </div>
+          <button
+            type="submit"
+            className="btn-primary py-2 px-6"
+          >
+            Apply Filters
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

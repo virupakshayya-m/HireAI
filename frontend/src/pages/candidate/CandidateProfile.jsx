@@ -115,10 +115,10 @@ const CandidateProfile = () => {
         <p className="text-gray-500 mt-1">Manage your personal information and resume.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         {/* Left Column: Basic Info */}
-        <div className="md:col-span-2 card p-6 md:p-8">
-          <h2 className="text-xl font-bold mb-6 text-slate-900">Basic Information</h2>
+        <div className="md:col-span-2 card p-5 md:p-6">
+          <h2 className="text-lg font-bold mb-5 text-slate-900">Basic Information</h2>
           
           <form onSubmit={handleProfileUpdate} className="space-y-6">
             <div>
@@ -160,8 +160,8 @@ const CandidateProfile = () => {
         </div>
 
         {/* Right Column: Resume Upload */}
-        <div className="card p-6 md:p-8 h-fit">
-          <h2 className="text-xl font-bold mb-6 text-slate-900">Resume</h2>
+        <div className="card p-5 md:p-6 h-fit">
+          <h2 className="text-lg font-bold mb-5 text-slate-900">Resume</h2>
           
           <div className="space-y-6">
             {resumeUrl ? (
