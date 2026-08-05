@@ -23,7 +23,7 @@ const JobForm = ({
   return (
     <form
       onSubmit={onSubmit}
-      className="space-y-6 rounded-xl border bg-white p-8 shadow-sm"
+      className="space-y-6 card p-6 md:p-8"
     >
       {/* Title */}
 
@@ -31,14 +31,13 @@ const JobForm = ({
         <label className="mb-2 block font-medium">
           Job Title
         </label>
-
         <input
           type="text"
           name="title"
           value={formData.title}
           onChange={handleChange}
           placeholder="Software Engineer"
-          className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+          className="input bg-slate-50"
           required
         />
       </div>
@@ -49,14 +48,13 @@ const JobForm = ({
         <label className="mb-2 block font-medium">
           Description
         </label>
-
         <textarea
           rows={6}
           name="description"
           value={formData.description}
           onChange={handleChange}
           placeholder="Describe the role..."
-          className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
+          className="input bg-slate-50"
           required
         />
       </div>
@@ -68,105 +66,99 @@ const JobForm = ({
         setFormData={setFormData}
       />
 
-      {/* Salary */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Salary */}
+        <div>
+          <label className="mb-2 block font-medium">
+            Salary (₹)
+          </label>
+          <input
+            type="number"
+            min={1}
+            name="salary"
+            value={formData.salary}
+            onChange={handleChange}
+            placeholder="600000"
+            className="input bg-slate-50"
+            required
+          />
+        </div>
 
-      <div>
-        <label className="mb-2 block font-medium">
-          Salary (₹)
-        </label>
-
-        <input
-          type="number"
-          min={1}
-          name="salary"
-          value={formData.salary}
-          onChange={handleChange}
-          placeholder="600000"
-          className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
-          required
-        />
+        {/* Location */}
+        <div>
+          <label className="mb-2 block font-medium">
+            Location
+          </label>
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleChange}
+            placeholder="Kolhapur"
+            className="input bg-slate-50"
+            required
+          />
+        </div>
       </div>
 
-      {/* Location */}
-
-      <div>
-        <label className="mb-2 block font-medium">
-          Location
-        </label>
-
-        <input
-          type="text"
-          name="location"
-          value={formData.location}
-          onChange={handleChange}
-          placeholder="Kolhapur"
-          className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
-          required
-        />
-      </div>
-
-      {/* Employment Type */}
-
-      <div>
-        <label className="mb-2 block font-medium">
-          Employment Type
-        </label>
-
-        <select
-          name="employmentType"
-          value={formData.employmentType}
-          onChange={handleChange}
-          className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
-          required
-        >
-          <option value="">
-            Select Employment Type
-          </option>
-
-          {EMPLOYMENT_TYPES.map((type) => (
-            <option
-              key={type}
-              value={type}
-            >
-              {type}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Employment Type */}
+        <div>
+          <label className="mb-2 block font-medium">
+            Employment Type
+          </label>
+          <select
+            name="employmentType"
+            value={formData.employmentType}
+            onChange={handleChange}
+            className="input bg-slate-50"
+            required
+          >
+            <option value="">
+              Select Employment Type
             </option>
-          ))}
-        </select>
-      </div>
+            {EMPLOYMENT_TYPES.map((type) => (
+              <option
+                key={type}
+                value={type}
+              >
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      {/* Experience */}
-
-      <div>
-        <label className="mb-2 block font-medium">
-          Experience Level
-        </label>
-
-        <select
-          name="experienceLevel"
-          value={formData.experienceLevel}
-          onChange={handleChange}
-          className="w-full rounded-lg border p-3 outline-none focus:border-blue-500"
-          required
-        >
-          <option value="">
-            Select Experience Level
-          </option>
-
-          {EXPERIENCE_LEVELS.map((level) => (
-            <option
-              key={level}
-              value={level}
-            >
-              {level}
+        {/* Experience */}
+        <div>
+          <label className="mb-2 block font-medium">
+            Experience Level
+          </label>
+          <select
+            name="experienceLevel"
+            value={formData.experienceLevel}
+            onChange={handleChange}
+            className="input bg-slate-50"
+            required
+          >
+            <option value="">
+              Select Experience Level
             </option>
-          ))}
-        </select>
+            {EXPERIENCE_LEVELS.map((level) => (
+              <option
+                key={level}
+                value={level}
+              >
+                {level}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full rounded-lg bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
+        className="btn-primary w-full py-3 text-lg mt-4 shadow-md shadow-blue-500/20"
       >
         {loading ? "Saving..." : buttonText}
       </button>

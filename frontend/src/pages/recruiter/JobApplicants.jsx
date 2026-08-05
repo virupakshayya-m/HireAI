@@ -59,8 +59,26 @@ const JobApplicants = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <p className="text-gray-500">Loading applicants...</p>
+      <div className="max-w-6xl mx-auto p-6 mt-8">
+        <div className="flex justify-between items-center mb-8">
+          <div className="h-8 bg-slate-200 rounded w-64 animate-pulse"></div>
+          <div className="h-4 bg-slate-200 rounded w-32 animate-pulse"></div>
+        </div>
+        <div className="card overflow-hidden">
+          <div className="h-12 bg-slate-100 border-b border-slate-200 animate-pulse"></div>
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="h-24 border-b border-slate-100 bg-white animate-pulse p-4 flex items-center justify-between">
+              <div className="space-y-2">
+                <div className="h-5 bg-slate-200 rounded w-48"></div>
+                <div className="h-4 bg-slate-200 rounded w-32"></div>
+              </div>
+              <div className="h-4 bg-slate-200 rounded w-24"></div>
+              <div className="h-4 bg-slate-200 rounded w-32"></div>
+              <div className="h-6 bg-slate-200 rounded-full w-20"></div>
+              <div className="h-10 bg-slate-200 rounded-lg w-32"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -71,19 +89,19 @@ const JobApplicants = () => {
         <h1 className="text-3xl font-bold">Manage Applicants</h1>
         <Link
           to="/recruiter/dashboard"
-          className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+          className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
         >
           &larr; Back to Dashboard
         </Link>
       </div>
 
       {applicants.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-lg shadow-sm border border-gray-100">
-          <h2 className="text-xl font-medium text-gray-700">No applicants yet.</h2>
-          <p className="text-gray-500 mt-2">When candidates apply for this job, they will appear here.</p>
+        <div className="card py-16 flex flex-col items-center justify-center text-center">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">No applicants yet.</h2>
+          <p className="text-slate-500 max-w-md mx-auto">When candidates apply for this job, they will appear here.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-lg shadow-sm overflow-hidden border border-gray-200">
+        <div className="card overflow-hidden border-0">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -105,7 +123,7 @@ const JobApplicants = () => {
                         {app.aiInsights && app.aiInsights.matchScore > 0 && (
                           <button
                             onClick={() => setExpandedId(expandedId === app._id ? null : app._id)}
-                            className="text-indigo-600 text-xs text-left mt-1 hover:underline"
+                            className="text-blue-600 font-medium text-xs text-left mt-1 hover:text-blue-700 transition-colors"
                           >
                             {expandedId === app._id ? "Hide AI Insights" : "View AI Insights"}
                           </button>
@@ -137,7 +155,7 @@ const JobApplicants = () => {
                       <select
                         value={app.status}
                         onChange={(e) => handleStatusChange(app._id, e.target.value)}
-                        className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border bg-white cursor-pointer shadow-sm"
+                        className="input py-1.5 px-3 bg-slate-50 text-sm font-medium min-w-[140px]"
                       >
                         <option value="pending">Pending</option>
                         <option value="shortlisted">Shortlisted</option>
@@ -149,7 +167,7 @@ const JobApplicants = () => {
                   
                   {/* Expandable Row for AI Insights */}
                   {expandedId === app._id && app.aiInsights && (
-                    <tr className="bg-indigo-50/30 border-b border-gray-100">
+                    <tr className="bg-blue-50/50 border-b border-slate-100">
                       <td colSpan={5} className="px-6 py-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div>

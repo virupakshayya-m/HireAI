@@ -80,17 +80,19 @@ const CompanySetup = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-[50vh]">
-        <p className="text-gray-500">Loading company details...</p>
+      <div className="max-w-2xl mx-auto p-6 mt-8 space-y-6">
+        <div className="h-8 bg-slate-200 rounded w-64 animate-pulse mb-6"></div>
+        <div className="card p-6 h-96 animate-pulse bg-slate-100"></div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-sm mt-8">
-      <h1 className="text-2xl font-bold mb-6">
-        {isEditing ? "Update Company Profile" : "Create Company Profile"}
-      </h1>
+    <div className="max-w-2xl mx-auto p-6 mt-8">
+      <div className="card p-6 md:p-8">
+        <h1 className="text-2xl font-bold mb-6 text-slate-900">
+          {isEditing ? "Update Company Profile" : "Create Company Profile"}
+        </h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
@@ -104,7 +106,7 @@ const CompanySetup = () => {
             required
             value={formData.name}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="input bg-slate-50 mt-1"
             placeholder="e.g. Google, Amazon, Acme Corp"
           />
         </div>
@@ -120,7 +122,7 @@ const CompanySetup = () => {
               name="industry"
               value={formData.industry}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="input bg-slate-50 mt-1"
               placeholder="e.g. Technology, Finance"
             />
           </div>
@@ -133,7 +135,7 @@ const CompanySetup = () => {
               name="location"
               value={formData.location}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="input bg-slate-50 mt-1"
               placeholder="e.g. San Francisco, CA"
             />
           </div>
@@ -149,7 +151,7 @@ const CompanySetup = () => {
             name="website"
             value={formData.website}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="input bg-slate-50 mt-1"
             placeholder="https://www.example.com"
           />
         </div>
@@ -164,22 +166,22 @@ const CompanySetup = () => {
             rows={4}
             value={formData.description}
             onChange={handleChange}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            className="input bg-slate-50 mt-1"
             placeholder="Brief description about what your company does..."
           />
         </div>
 
-        {/* Submit Button */}
         <div className="flex justify-end pt-4">
           <button
             type="submit"
             disabled={isSaving}
-            className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50"
+            className="btn-primary"
           >
             {isSaving ? "Saving..." : isEditing ? "Update Company" : "Register Company"}
           </button>
         </div>
       </form>
+      </div>
     </div>
   );
 };

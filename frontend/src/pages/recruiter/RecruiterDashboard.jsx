@@ -103,7 +103,23 @@ const RecruiterDashboard = () => {
   };
 
   if (isLoading) {
-    return <div className="py-20 text-center">Loading dashboard...</div>;
+    return (
+      <div className="mx-auto max-w-7xl px-4 py-8">
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <div className="h-8 bg-slate-200 rounded w-64 animate-pulse mb-3"></div>
+            <div className="h-4 bg-slate-200 rounded w-48 animate-pulse"></div>
+          </div>
+          <div className="h-12 bg-slate-200 rounded-lg w-36 animate-pulse"></div>
+        </div>
+        <div className="mb-6 card p-5 animate-pulse h-24 bg-slate-100"></div>
+        <div className="grid gap-6">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="card p-6 h-48 animate-pulse bg-slate-100"></div>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -121,7 +137,7 @@ const RecruiterDashboard = () => {
 
         <Link
           to="/recruiter/jobs/new"
-          className="rounded-lg bg-blue-600 px-5 py-3 font-medium text-white transition hover:bg-blue-700"
+          className="btn-primary"
         >
           + Post New Job
         </Link>
@@ -135,18 +151,14 @@ const RecruiterDashboard = () => {
       />
 
       {jobs.length === 0 ? (
-        <div className="mt-10 rounded-xl border bg-white py-20 text-center">
-          <h2 className="text-2xl font-semibold">
-            You haven't posted any jobs yet.
-          </h2>
-
-          <p className="mt-3 text-gray-500">
-            Create your first job posting and start hiring.
+        <div className="card py-16 flex flex-col items-center justify-center text-center">
+          <h2 className="text-xl font-bold text-slate-900 mb-2">No Jobs Posted</h2>
+          <p className="text-slate-500 mb-6 max-w-md mx-auto">
+            You haven't posted any jobs yet. Create your first job posting and start hiring today.
           </p>
-
           <Link
             to="/recruiter/jobs/new"
-            className="mt-8 inline-block rounded-lg bg-blue-600 px-6 py-3 text-white hover:bg-blue-700"
+            className="btn-primary"
           >
             Post Your First Job
           </Link>
