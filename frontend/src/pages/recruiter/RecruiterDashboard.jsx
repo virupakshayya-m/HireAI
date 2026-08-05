@@ -113,8 +113,8 @@ const RecruiterDashboard = () => {
           <div className="h-12 bg-slate-200 rounded-lg w-36 animate-pulse"></div>
         </div>
         <div className="mb-6 card p-5 animate-pulse h-24 bg-slate-100"></div>
-        <div className="grid gap-6">
-          {[1, 2, 3].map(i => (
+        <div className="grid gap-6 md:grid-cols-2">
+          {[1, 2, 3, 4].map(i => (
             <div key={i} className="card p-6 h-48 animate-pulse bg-slate-100"></div>
           ))}
         </div>
@@ -165,7 +165,7 @@ const RecruiterDashboard = () => {
         </div>
       ) : (
         <>
-          <div className="mt-8 grid gap-6">
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
             {jobs.map((job) => (
               <RecruiterJobCard key={job._id} job={job} onDelete={handleDeleteClick} />
             ))}

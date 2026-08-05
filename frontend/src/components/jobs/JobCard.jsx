@@ -5,7 +5,7 @@ const JobCard = ({ job }) => {
   return (
     <Link
       to={`/jobs/${job._id}`}
-      className="block card p-6 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 transition-all duration-200 group"
+      className="block card p-5 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 transition-all duration-200 group"
     >
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-4">
@@ -36,25 +36,31 @@ const JobCard = ({ job }) => {
         </div>
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-3">
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-medium">
+      {job.description && (
+        <p className="mt-4 text-sm text-slate-600 line-clamp-2 leading-relaxed">
+          {job.description}
+        </p>
+      )}
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-xs font-medium">
           <MapPin className="w-4 h-4" />
           {job.location}
         </div>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm font-medium">
-          <Briefcase className="w-4 h-4" />
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-medium">
+          <Briefcase className="w-3.5 h-3.5" />
           {job.employmentType}
         </div>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-sm font-medium">
-          <Clock className="w-4 h-4" />
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-medium">
+          <Clock className="w-3.5 h-3.5" />
           {job.experienceLevel}
         </div>
       </div>
       
       {job.salary && (
-        <div className="mt-5 pt-5 border-t border-slate-100 flex items-center justify-between">
-          <span className="text-slate-500 text-sm">Salary</span>
-          <span className="font-semibold text-slate-900">${job.salary.toLocaleString()}</span>
+        <div className="mt-4 pt-4 border-t border-slate-100 flex items-center justify-between">
+          <span className="text-slate-500 text-sm font-medium">Salary</span>
+          <span className="font-bold text-slate-900">${job.salary.toLocaleString()}</span>
         </div>
       )}
     </Link>

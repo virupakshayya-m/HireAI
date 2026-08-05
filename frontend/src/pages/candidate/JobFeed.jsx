@@ -75,8 +75,8 @@ const JobFeed = () => {
     return (
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-8 card p-6 animate-pulse bg-slate-100/50 h-48"></div>
-        <div className="grid gap-6">
-          {[1, 2, 3].map((i) => (
+        <div className="grid gap-6 md:grid-cols-2">
+          {[1, 2, 3, 4, 5, 6].map((i) => (
             <div key={i} className="card p-6 animate-pulse">
               <div className="flex gap-4 mb-6">
                 <div className="w-14 h-14 bg-slate-200 rounded-lg"></div>
@@ -120,7 +120,7 @@ const JobFeed = () => {
           </button>
         </div>
       ) : (
-        <div className="mt-8 grid gap-6">
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
           {jobs.map((job) => (
             <JobCard key={job._id} job={job} />
           ))}

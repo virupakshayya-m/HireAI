@@ -3,7 +3,7 @@ import { MapPin, Briefcase, Users } from "lucide-react";
 
 function RecruiterJobCard({ job, onDelete }) {
   return (
-    <div className="card p-6 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 transition-all duration-200">
+    <div className="card p-5 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 transition-all duration-200 flex flex-col h-full">
       <div className="flex justify-between items-start mb-4">
         <h2 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{job.title}</h2>
         <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full text-sm font-medium">
@@ -32,25 +32,24 @@ function RecruiterJobCard({ job, onDelete }) {
       </div>
 
       {/* Actions */}
-
-      <div className="pt-5 border-t border-slate-100 flex gap-3">
+      <div className="pt-4 mt-auto border-t border-slate-100 flex flex-wrap gap-2">
         <Link
           to={`/recruiter/jobs/${job._id}/applicants`}
-          className="flex-1 btn-primary py-2.5"
+          className="w-full btn-primary py-2 text-sm"
         >
           View Applicants
         </Link>
 
         <Link
           to={`/recruiter/jobs/${job._id}/edit`}
-          className="btn-secondary py-2.5"
+          className="flex-1 btn-secondary py-2 min-w-[100px] text-sm"
         >
           Edit
         </Link>
 
         <button
           onClick={() => onDelete(job)}
-          className="bg-white border border-red-200 text-red-600 px-4 py-2 rounded-lg font-medium hover:bg-red-50 hover:border-red-300 transition-colors shadow-sm"
+          className="flex-1 min-w-[70px] bg-white border border-red-200 text-red-600 px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-50 hover:border-red-300 transition-colors shadow-sm text-center"
         >
           Delete
         </button>

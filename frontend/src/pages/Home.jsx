@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <div className="bg-slate-50">
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-16 pb-32 lg:pt-24 lg:pb-40">
+      <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] flex flex-col justify-center py-16">
         <div className="absolute inset-0 bg-blue-600/5 -skew-y-6 transform origin-top-left -z-10" />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

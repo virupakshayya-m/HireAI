@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import Layout from "@/components/layout/Layout";
+import ScrollToTop from "@/components/layout/ScrollToTop";
 
 import Home from "@/pages/Home";
 import Login from "@/pages/auth/Login";
@@ -35,7 +36,7 @@ function App() {
 
   return (
     <Layout>
-
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />}></Route>

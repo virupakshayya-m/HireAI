@@ -49,7 +49,7 @@ const JobForm = ({
           Description
         </label>
         <textarea
-          rows={6}
+          rows={3}
           name="description"
           value={formData.description}
           onChange={handleChange}

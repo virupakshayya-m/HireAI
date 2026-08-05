@@ -9,10 +9,6 @@ const JobApplicants = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [expandedId, setExpandedId] = useState(null);
 
-  useEffect(() => {
-    fetchApplicants();
-  }, [id]);
-
   const fetchApplicants = async () => {
     try {
       setIsLoading(true);
@@ -24,6 +20,10 @@ const JobApplicants = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchApplicants();
+  }, [id]);
 
   const handleStatusChange = async (applicationId, newStatus) => {
     try {

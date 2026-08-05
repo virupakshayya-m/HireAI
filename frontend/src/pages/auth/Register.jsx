@@ -39,7 +39,8 @@ function Register() {
 
     try {
       // Strip out confirmPassword since the backend schema is strict
-      const { confirmPassword, ...dataToSend } = formData;
+      const dataToSend = { ...formData };
+      delete dataToSend.confirmPassword;
       await registerUser({ ...dataToSend, role });
       toast.success("Registration successful! Please login.");
       navigate("/login");

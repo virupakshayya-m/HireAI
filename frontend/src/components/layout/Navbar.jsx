@@ -21,7 +21,7 @@ const Navbar = () => {
     }
   };
 
-  const NavLinks = () => {
+  const renderNavLinks = () => {
     if (!user) {
       return (
         <>
@@ -63,7 +63,7 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex md:items-center md:space-x-8">
-            <NavLinks />
+            {renderNavLinks()}
             
             {user && (
               <div className="relative ml-4">
@@ -128,7 +128,7 @@ const Navbar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-slate-200 bg-white">
           <div className="px-4 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col gap-4">
-            <NavLinks />
+            {renderNavLinks()}
             {user && (
               <div className="pt-4 border-t border-slate-200">
                 <div className="flex items-center px-2 mb-4">

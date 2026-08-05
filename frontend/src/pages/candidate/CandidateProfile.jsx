@@ -13,10 +13,6 @@ const CandidateProfile = () => {
   const [skillsText, setSkillsText] = useState(""); // We'll manage skills as a comma-separated string for the UI
   const [resumeUrl, setResumeUrl] = useState("");
 
-  useEffect(() => {
-    fetchProfile();
-  }, []);
-
   const fetchProfile = async () => {
     try {
       setIsLoading(true);
@@ -39,6 +35,11 @@ const CandidateProfile = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleProfileUpdate = async (e) => {
     e.preventDefault();
@@ -130,7 +131,7 @@ const CandidateProfile = () => {
                 Bio
               </label>
               <textarea
-                rows={4}
+                rows={2}
                 value={bio}
                 onChange={(e) => setBio(e.target.value)}
                 className="input bg-slate-50"

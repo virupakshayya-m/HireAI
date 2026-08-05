@@ -166,7 +166,7 @@ const CompanySetup = () => {
           </label>
           <textarea
             name="description"
-            rows={4}
+            rows={2}
             value={formData.description}
             onChange={handleChange}
             className="input bg-slate-50 mt-1"
