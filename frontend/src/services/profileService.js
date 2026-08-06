@@ -31,3 +31,13 @@ export const uploadResume = async (formData) => {
     throw error.response?.data || error;
   }
 };
+
+// Upload profile photo to Cloudinary
+export const uploadProfilePhoto = async (formData) => {
+  try {
+    const response = await api.put("/profile/photo", formData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

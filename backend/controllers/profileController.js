@@ -26,6 +26,12 @@ export const updateMyProfile = asyncHandler(async (req, res) => {
 
   const user = req.user;
 
+  // Handle name update if it's provided (name sits on root user model, not profile)
+  if (validatedResult.data.name !== undefined) {
+    user.name = validatedResult.data.name;
+    delete validatedResult.data.name;
+  }
+
   Object.keys(validatedResult.data).forEach((key) => {
     user.profile[key] = validatedResult.data[key];
   });
@@ -86,5 +92,60 @@ export const uploadResume = asyncHandler(async (req, res) => {
     resume: {
       url: req.user.profile.resume.url,
     },
+  });
+});
+
+export const uploadProfilePhoto = asyncHandler(async (req, res) => {
+  if (!req.file) {
+    throw new AppError("Photo file is required", 400);
+  }
+
+  const allowedMimeTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+
+  if (!allowedMimeTypes.includes(req.file.mimetype)) {
+    throw new AppError("Only JPG, PNG and WEBP image files are allowed", 400);
+  }
+
+  const uploadedPhoto = await uploadToCloudinary(
+    req.file.buffer,
+    "hireai/profiles",
+  );
+
+  let oldPublicId = null;
+  const currentPhotoUrl = req.user.profile?.profilePhoto;
+  
+  // If there's an existing photo from Cloudinary, try to extract its publicId
+  if (currentPhotoUrl && currentPhotoUrl.includes("cloudinary.com")) {
+    try {
+      // Very basic extraction of public ID from cloudinary URL
+      // https://res.cloudinary.com/dbx/.../upload/v1234/hireai/profiles/abc123.jpg
+      const parts = currentPhotoUrl.split("/");
+      const filename = parts[parts.length - 1];
+      const folder = parts[parts.length - 2];
+      const folder2 = parts[parts.length - 3];
+      if (folder2 === "hireai" && folder === "profiles") {
+        oldPublicId = `hireai/profiles/${filename.split(".")[0]}`;
+      }
+    } catch (e) {
+      console.log("Could not parse old photo public ID");
+    }
+  }
+
+  req.user.profile.profilePhoto = uploadedPhoto.secure_url;
+
+  await req.user.save();
+
+  if (oldPublicId) {
+    try {
+      await deleteFromCloudinary(oldPublicId);
+    } catch (error) {
+      console.error("Failed to delete old profile photo:", error);
+    }
+  }
+
+  return res.status(200).json({
+    success: true,
+    message: "Profile photo uploaded successfully",
+    profilePhoto: req.user.profile.profilePhoto,
   });
 });

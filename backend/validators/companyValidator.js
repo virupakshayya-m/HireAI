@@ -4,10 +4,10 @@ export const companySchema = z
   .object({
     name: z.string().trim().min(2, "Company name is required"),
     description: z.string().trim().optional(),
-    website: z.string().trim().url("Invalid website URL").optional(),
+    website: z.string().trim().url("Invalid website URL").or(z.literal("")).optional(),
     location: z.string().trim().optional(),
     industry: z.string().trim().optional(),
-    logo: z.string().trim().url("Invalid logo image URL").optional(),
+    logo: z.string().trim().url("Invalid logo image URL").or(z.literal("")).optional(),
   })
   .strict();
 

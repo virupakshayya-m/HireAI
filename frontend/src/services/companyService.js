@@ -29,3 +29,13 @@ export const updateCompany = async (companyData) => {
     throw error.response?.data || error;
   }
 };
+
+// Upload company logo to Cloudinary
+export const uploadCompanyLogo = async (formData) => {
+  try {
+    const response = await api.put("/companies/logo", formData);
+    return response.data;
+  } catch (error) {
+    throw error.response?.data || error;
+  }
+};

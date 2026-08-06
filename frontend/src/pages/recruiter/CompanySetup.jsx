@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import {
   createCompany,
   getMyCompany,
   updateCompany,
+  uploadCompanyLogo,
 } from "@/services/companyService";
 import { useAuth } from "@/context/AuthContext";
 
@@ -14,6 +15,7 @@ const CompanySetup = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [isLogoUploading, setIsLogoUploading] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -21,6 +23,7 @@ const CompanySetup = () => {
     website: "",
     location: "",
     industry: "",
+    logo: "",
   });
 
   // Fetch company data on component mount
@@ -36,6 +39,7 @@ const CompanySetup = () => {
             website: data.company.website || "",
             location: data.company.location || "",
             industry: data.company.industry || "",
+            logo: data.company.logo || "",
           });
           setIsEditing(true); // Switch to edit mode
         }
@@ -81,6 +85,34 @@ const CompanySetup = () => {
     }
   };
 
+  const handleLogoUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const allowedTypes = ["image/jpeg", "image/png", "image/jpg", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("Only JPG, PNG and WEBP files are allowed");
+      return;
+    }
+
+    setIsLogoUploading(true);
+    
+    const uploadData = new FormData();
+    uploadData.append("logo", file);
+
+    try {
+      const data = await uploadCompanyLogo(uploadData);
+      setFormData(prev => ({ ...prev, logo: data.logo }));
+      await refreshUser();
+      toast.success("Company logo uploaded successfully!");
+    } catch (error) {
+      toast.error(error.message || "Failed to upload logo");
+    } finally {
+      setIsLogoUploading(false);
+      e.target.value = null; 
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="max-w-2xl mx-auto p-6 mt-8 space-y-6">
@@ -92,11 +124,21 @@ const CompanySetup = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-6 mt-8">
-      <div className="card p-6 md:p-8">
-        <h1 className="text-2xl font-bold mb-6 text-slate-900">
+      <div className="mb-6 flex justify-between items-center">
+        <h1 className="text-2xl font-bold text-slate-900">
           {isEditing ? "Update Company Profile" : "Create Company Profile"}
         </h1>
+        {isEditing && (
+          <Link
+            to="/recruiter/dashboard"
+            className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+          >
+            &larr; Back to Dashboard
+          </Link>
+        )}
+      </div>
 
+      <div className="card p-6 md:p-8">
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <div>
@@ -158,6 +200,41 @@ const CompanySetup = () => {
             placeholder="https://www.example.com"
           />
         </div>
+
+        {/* Logo */}
+        {isEditing && (
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Company Logo
+            </label>
+            <div className="flex items-center gap-6">
+              <div className="shrink-0 relative">
+                {formData.logo ? (
+                  <img src={formData.logo} alt="Logo" className="w-20 h-20 rounded-lg object-cover border border-slate-200 shadow-sm" />
+                ) : (
+                  <div className="w-20 h-20 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 text-2xl font-bold border border-blue-100 shadow-sm">
+                    {formData.name ? formData.name.charAt(0).toUpperCase() : "?"}
+                  </div>
+                )}
+                {isLogoUploading && (
+                  <div className="absolute inset-0 bg-white/60 rounded-lg flex items-center justify-center">
+                    <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                )}
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-slate-500 mb-2">Upload your company logo (JPG, PNG).</p>
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png,.webp,image/*"
+                  onChange={handleLogoUpload}
+                  disabled={isLogoUploading}
+                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 cursor-pointer"
+                />
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Description */}
         <div>

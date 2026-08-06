@@ -17,6 +17,7 @@ import CompanySetup from "@/pages/recruiter/CompanySetup";
 import MyApplications from "@/pages/candidate/MyApplications";
 import JobApplicants from "@/pages/recruiter/JobApplicants";
 import CandidateProfile from "@/pages/candidate/CandidateProfile";
+import RecruiterProfile from "@/pages/recruiter/RecruiterProfile";
 
 function App() {
   const { loading } = useAuth();
@@ -61,6 +62,7 @@ function App() {
         
         <Route element={<ProtectedRoute allowedRoles={["recruiter"]} />}>
           <Route path="/recruiter/company" element={<CompanySetup />} />
+          <Route path="/recruiter/profile" element={<RecruiterProfile />} />
         </Route>
       </Routes>
     </Layout>

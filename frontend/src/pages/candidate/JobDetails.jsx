@@ -115,7 +115,7 @@ const JobDetails = () => {
                 {job.salary && (
                   <>
                     <span className="hidden sm:inline">•</span>
-                    <span className="text-slate-900">${job.salary.toLocaleString()}</span>
+                    <span className="text-slate-900">₹{job.salary.toLocaleString()}</span>
                   </>
                 )}
               </div>

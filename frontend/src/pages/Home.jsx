@@ -24,7 +24,7 @@ const Home = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             {user?.role === "candidate" ? (
               <Link to="/jobs" className="btn-primary text-lg py-4 px-8 shadow-lg shadow-blue-500/30">
-                Browse AI Matches
+                Browse Jobs
               </Link>
             ) : user?.role === "recruiter" ? (
               <Link to="/recruiter/dashboard" className="btn-primary text-lg py-4 px-8 shadow-lg shadow-blue-500/30">
