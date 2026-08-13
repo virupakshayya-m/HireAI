@@ -107,15 +107,15 @@ const RecruiterDashboard = () => {
       <div className="mx-auto max-w-7xl px-4 py-8">
         <div className="mb-8 flex items-center justify-between">
           <div>
-            <div className="h-8 bg-slate-200 rounded w-64 animate-pulse mb-3"></div>
-            <div className="h-4 bg-slate-200 rounded w-48 animate-pulse"></div>
+            <div className="h-8 bg-neutral-200 rounded w-64 animate-pulse mb-3"></div>
+            <div className="h-4 bg-neutral-200 rounded w-48 animate-pulse"></div>
           </div>
-          <div className="h-12 bg-slate-200 rounded-lg w-36 animate-pulse"></div>
+          <div className="h-12 bg-neutral-200 rounded-lg w-36 animate-pulse"></div>
         </div>
-        <div className="mb-6 card p-5 animate-pulse h-24 bg-slate-100"></div>
+        <div className="mb-6 card p-5 animate-pulse h-24 bg-neutral-100"></div>
         <div className="grid gap-6 md:grid-cols-2">
           {[1, 2, 3, 4].map(i => (
-            <div key={i} className="card p-6 h-48 animate-pulse bg-slate-100"></div>
+            <div key={i} className="card p-6 h-48 animate-pulse bg-neutral-100"></div>
           ))}
         </div>
       </div>
@@ -130,7 +130,7 @@ const RecruiterDashboard = () => {
         <div>
           <h1 className="text-3xl font-bold">Recruiter Dashboard</h1>
 
-          <p className="mt-2 text-gray-500">
+          <p className="mt-2 text-neutral-500">
             Manage your job postings and applicants.
           </p>
         </div>
@@ -152,8 +152,8 @@ const RecruiterDashboard = () => {
 
       {jobs.length === 0 ? (
         <div className="card py-16 flex flex-col items-center justify-center text-center">
-          <h2 className="text-xl font-bold text-slate-900 mb-2">No Jobs Posted</h2>
-          <p className="text-slate-500 mb-6 max-w-md mx-auto">
+          <h2 className="text-xl font-bold text-neutral-900 mb-2">No Jobs Posted</h2>
+          <p className="text-neutral-500 mb-6 max-w-md mx-auto">
             You haven't posted any jobs yet. Create your first job posting and start hiring today.
           </p>
           <Link

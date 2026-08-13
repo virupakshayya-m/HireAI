@@ -40,14 +40,14 @@ function ConfirmationModal({
       >
         <h2 className="text-xl font-semibold">{title}</h2>
 
-        <p className="mt-3 text-gray-600">{message}</p>
+        <p className="mt-3 text-neutral-600">{message}</p>
 
         <div className="mt-8 flex justify-end gap-3">
           <button
             type="button"
             disabled={loading}
             onClick={onCancel}
-            className="rounded-lg border px-4 py-2 hover:bg-gray-100 disabled:opacity-50"
+            className="rounded-lg border px-4 py-2 hover:bg-neutral-100 disabled:opacity-50"
           >
             {cancelText}
           </button>
@@ -56,7 +56,7 @@ function ConfirmationModal({
             type="button"
             disabled={loading}
             onClick={onConfirm}
-            className="rounded-lg bg-red-600 px-4 py-2 text-white hover:bg-red-700 disabled:opacity-50"
+            className="rounded-lg bg-danger-600 px-4 py-2 text-white hover:bg-danger-700 disabled:opacity-50"
           >
             {loading ? loadingText : confirmText}
           </button>

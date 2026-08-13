@@ -27,13 +27,13 @@ const Navbar = () => {
         <>
           <Link
             to="/jobs"
-            className={`font-medium transition-colors ${location.pathname === "/jobs" ? "text-blue-600" : "text-slate-600 hover:text-blue-600"}`}
+            className={`font-medium transition-colors ${location.pathname === "/jobs" ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
           >
             Find Jobs
           </Link>
           <Link
             to="/login"
-            className="text-slate-600 hover:text-blue-600 font-medium transition-colors"
+            className="text-neutral-600 hover:text-primary-600 font-medium transition-colors"
           >
             Log in
           </Link>
@@ -49,13 +49,13 @@ const Navbar = () => {
         <>
           <Link
             to="/jobs"
-            className={`font-medium transition-colors ${location.pathname === "/jobs" ? "text-blue-600" : "text-slate-600 hover:text-blue-600"}`}
+            className={`font-medium transition-colors ${location.pathname === "/jobs" ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
           >
             Find Jobs
           </Link>
           <Link
             to="/candidate/applications"
-            className={`font-medium transition-colors ${location.pathname === "/candidate/applications" ? "text-blue-600" : "text-slate-600 hover:text-blue-600"}`}
+            className={`font-medium transition-colors ${location.pathname === "/candidate/applications" ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
           >
             My Applications
           </Link>
@@ -68,7 +68,7 @@ const Navbar = () => {
         <>
           <Link
             to="/recruiter/dashboard"
-            className={`font-medium transition-colors ${location.pathname.includes("/dashboard") ? "text-blue-600" : "text-slate-600 hover:text-blue-600"}`}
+            className={`font-medium transition-colors ${location.pathname.includes("/dashboard") ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
           >
             Dashboard
           </Link>
@@ -81,15 +81,15 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <nav className="bg-white border-b border-neutral-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link
               to="/"
-              className="flex-shrink-0 flex items-center gap-2 text-2xl font-bold text-slate-900 tracking-tight"
+              className="flex-shrink-0 flex items-center gap-2 text-2xl font-bold text-neutral-900 tracking-tight"
             >
-              <span className="text-blue-600">Hire</span>AI
+              <span className="text-primary-600">Hire</span>AI
             </Link>
           </div>
 
@@ -102,16 +102,16 @@ const Navbar = () => {
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
-                  className="flex items-center gap-2 text-slate-700 hover:text-blue-600 focus:outline-none"
+                  className="flex items-center gap-2 text-neutral-700 hover:text-primary-600 focus:outline-none"
                 >
                   {user.profile?.profilePhoto ? (
                     <img
                       src={user.profile.profilePhoto}
                       alt={user.name}
-                      className="w-8 h-8 rounded-full object-cover border border-slate-100 shadow-sm"
+                      className="w-8 h-8 rounded-full object-cover border border-neutral-100 shadow-sm"
                     />
                   ) : (
-                    <div className="w-8 h-8 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold">
+                    <div className="w-8 h-8 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold">
                       {user.name.charAt(0).toUpperCase()}
                     </div>
                   )}
@@ -120,9 +120,9 @@ const Navbar = () => {
                 </button>
 
                 {isDropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-slate-100">
-                    <div className="px-4 py-2 border-b border-slate-100">
-                      <p className="text-sm text-slate-500 capitalize">
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 border border-neutral-100">
+                    <div className="px-4 py-2 border-b border-neutral-100">
+                      <p className="text-sm text-neutral-500 capitalize">
                         {user.role}
                       </p>
                     </div>
@@ -133,7 +133,7 @@ const Navbar = () => {
                           navigate("/candidate/profile");
                           setIsDropdownOpen(false);
                         }}
-                        className="flex items-center w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-blue-600 cursor-pointer"
+                        className="flex items-center w-full px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 cursor-pointer"
                       >
                         <UserIcon className="w-4 h-4 mr-2" />
                         Profile Settings
@@ -147,7 +147,7 @@ const Navbar = () => {
                             navigate("/recruiter/profile");
                             setIsDropdownOpen(false);
                           }}
-                          className="flex items-center w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-blue-600 cursor-pointer"
+                          className="flex items-center w-full px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 cursor-pointer"
                         >
                           <UserIcon className="w-4 h-4 mr-2" />
                           Profile Settings
@@ -157,7 +157,7 @@ const Navbar = () => {
                             navigate("/recruiter/company");
                             setIsDropdownOpen(false);
                           }}
-                          className="flex items-center w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-blue-600 cursor-pointer"
+                          className="flex items-center w-full px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 cursor-pointer"
                         >
                           <UserIcon className="w-4 h-4 mr-2" />
                           Company Profile
@@ -171,7 +171,7 @@ const Navbar = () => {
                         setIsDropdownOpen(false);
                         handleLogout();
                       }}
-                      className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer"
+                      className="flex items-center w-full px-4 py-2 text-sm text-danger-600 hover:bg-danger-50 cursor-pointer"
                     >
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign out
@@ -186,7 +186,7 @@ const Navbar = () => {
           <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-slate-500 hover:text-blue-600 focus:outline-none"
+              className="text-neutral-500 hover:text-primary-600 focus:outline-none"
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -200,20 +200,20 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white">
+        <div className="md:hidden border-t border-neutral-200 bg-white">
           <div className="px-4 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col gap-4">
             {renderNavLinks()}
             {user && (
-              <div className="pt-4 border-t border-slate-200">
+              <div className="pt-4 border-t border-neutral-200">
                 <div className="flex items-center px-2 mb-4">
-                  <div className="w-10 h-10 bg-blue-100 text-blue-700 rounded-full flex items-center justify-center font-bold text-lg">
+                  <div className="w-10 h-10 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold text-lg">
                     {user.name.charAt(0).toUpperCase()}
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-slate-800">
+                    <div className="text-base font-medium text-neutral-800">
                       {user.name}
                     </div>
-                    <div className="text-sm font-medium text-slate-500 capitalize">
+                    <div className="text-sm font-medium text-neutral-500 capitalize">
                       {user.role}
                     </div>
                   </div>
@@ -222,7 +222,7 @@ const Navbar = () => {
                 {user.role === "candidate" && (
                   <Link
                     to="/candidate/profile"
-                    className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+                    className="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:text-primary-600 hover:bg-neutral-50"
                   >
                     Profile Settings
                   </Link>
@@ -231,13 +231,13 @@ const Navbar = () => {
                   <>
                     <Link
                       to="/recruiter/profile"
-                      className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+                      className="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:text-primary-600 hover:bg-neutral-50"
                     >
                       Profile Settings
                     </Link>
                     <Link
                       to="/recruiter/company"
-                      className="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-slate-50"
+                      className="block px-3 py-2 rounded-md text-base font-medium text-neutral-700 hover:text-primary-600 hover:bg-neutral-50"
                     >
                       Company Profile
                     </Link>
@@ -245,7 +245,7 @@ const Navbar = () => {
                 )}
                 <button
                   onClick={handleLogout}
-                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50"
+                  className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-danger-600 hover:bg-danger-50"
                 >
                   Sign out
                 </button>

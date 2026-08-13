@@ -3,10 +3,10 @@ import { MapPin, Briefcase, Users } from "lucide-react";
 
 function RecruiterJobCard({ job, onDelete }) {
   return (
-    <div className="card p-5 hover:-translate-y-1 hover:shadow-md hover:border-blue-200 transition-all duration-200 flex flex-col h-full">
+    <div className="card p-5 hover:-translate-y-1 hover:shadow-md hover:border-primary-200 transition-all duration-200 flex flex-col h-full">
       <div className="flex justify-between items-start mb-4">
-        <h2 className="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors">{job.title}</h2>
-        <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full text-sm font-medium">
+        <h2 className="text-xl font-bold text-neutral-900 group-hover:text-primary-600 transition-colors">{job.title}</h2>
+        <div className="flex items-center gap-2 bg-primary-50 text-primary-700 px-3 py-1.5 rounded-full text-sm font-medium">
           <Users size={16} />
           <span>
             {job.applicantCount} Applicant{job.applicantCount !== 1 ? "s" : ""}
@@ -16,11 +16,11 @@ function RecruiterJobCard({ job, onDelete }) {
 
       {/* Meta Information */}
       <div className="flex flex-wrap gap-3 mb-6">
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-100 text-slate-600 text-sm font-medium">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-neutral-100 text-neutral-600 text-sm font-medium">
           <MapPin className="w-4 h-4" />
           {job.location}
         </div>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-sm font-medium">
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-primary-50 text-primary-700 text-sm font-medium">
           <Briefcase className="w-4 h-4" />
           {job.employmentType}
         </div>
@@ -32,7 +32,7 @@ function RecruiterJobCard({ job, onDelete }) {
       </div>
 
       {/* Actions */}
-      <div className="pt-4 mt-auto border-t border-slate-100 flex flex-wrap gap-2">
+      <div className="pt-4 mt-auto border-t border-neutral-100 flex flex-wrap gap-2">
         <Link
           to={`/recruiter/jobs/${job._id}/applicants`}
           className="w-full btn-primary py-2 text-sm"
@@ -49,7 +49,7 @@ function RecruiterJobCard({ job, onDelete }) {
 
         <button
           onClick={() => onDelete(job)}
-          className="flex-1 min-w-[70px] bg-white border border-red-200 text-red-600 px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-50 hover:border-red-300 transition-colors shadow-sm text-center"
+          className="flex-1 min-w-[70px] bg-white border border-danger-200 text-danger-600 px-3 py-2 rounded-lg text-sm font-medium hover:bg-danger-50 hover:border-danger-300 transition-colors shadow-sm text-center"
         >
           Delete
         </button>

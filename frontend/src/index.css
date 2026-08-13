@@ -1,10 +1,65 @@
 @import "tailwindcss";
 
+@theme {
+  /* Premium Primary Palette (Indigo) */
+  --color-primary-50: var(--color-indigo-50);
+  --color-primary-100: var(--color-indigo-100);
+  --color-primary-200: var(--color-indigo-200);
+  --color-primary-300: var(--color-indigo-300);
+  --color-primary-400: var(--color-indigo-400);
+  --color-primary-500: var(--color-indigo-500);
+  --color-primary-600: var(--color-indigo-600);
+  --color-primary-700: var(--color-indigo-700);
+  --color-primary-800: var(--color-indigo-800);
+  --color-primary-900: var(--color-indigo-900);
+  --color-primary-950: var(--color-indigo-950);
+
+  /* Premium Neutral Palette (Slate) */
+  --color-neutral-50: var(--color-slate-50);
+  --color-neutral-100: var(--color-slate-100);
+  --color-neutral-200: var(--color-slate-200);
+  --color-neutral-300: var(--color-slate-300);
+  --color-neutral-400: var(--color-slate-400);
+  --color-neutral-500: var(--color-slate-500);
+  --color-neutral-600: var(--color-slate-600);
+  --color-neutral-700: var(--color-slate-700);
+  --color-neutral-800: var(--color-slate-800);
+  --color-neutral-900: var(--color-slate-900);
+  --color-neutral-950: var(--color-slate-950);
+
+  /* Premium Success Palette (Emerald) */
+  --color-success-50: var(--color-emerald-50);
+  --color-success-100: var(--color-emerald-100);
+  --color-success-200: var(--color-emerald-200);
+  --color-success-500: var(--color-emerald-500);
+  --color-success-600: var(--color-emerald-600);
+  --color-success-700: var(--color-emerald-700);
+  --color-success-800: var(--color-emerald-800);
+
+  /* Premium Danger Palette (Rose) */
+  --color-danger-50: var(--color-rose-50);
+  --color-danger-100: var(--color-rose-100);
+  --color-danger-200: var(--color-rose-200);
+  --color-danger-500: var(--color-rose-500);
+  --color-danger-600: var(--color-rose-600);
+  --color-danger-700: var(--color-rose-700);
+  --color-danger-800: var(--color-rose-800);
+
+  /* Premium Warning Palette (Amber) */
+  --color-warning-50: var(--color-amber-50);
+  --color-warning-100: var(--color-amber-100);
+  --color-warning-200: var(--color-amber-200);
+  --color-warning-500: var(--color-amber-500);
+  --color-warning-600: var(--color-amber-600);
+  --color-warning-700: var(--color-amber-700);
+  --color-warning-800: var(--color-amber-800);
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   body {
-    @apply font-['Inter'] bg-slate-50 text-slate-900;
+    @apply font-['Inter'] bg-neutral-50 text-neutral-900;
     background-image: linear-gradient(to bottom, #f8fafc, #f1f5f9);
     background-attachment: fixed;
   }
@@ -12,19 +67,19 @@
 
 @layer components {
   .input {
-    @apply w-full rounded-lg border border-slate-300 px-4 py-2 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-white;
+    @apply w-full rounded-lg border border-neutral-300 px-4 py-2 transition duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 bg-white;
   }
-  
+
   .btn-primary {
-    @apply inline-flex justify-center items-center px-4 py-2 bg-blue-600 border border-transparent rounded-lg font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 active:bg-blue-800 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-blue-600;
+    @apply inline-flex justify-center items-center px-4 py-2 bg-primary-600 border border-transparent rounded-lg font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200 active:bg-primary-800 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-primary-600;
   }
 
   .btn-secondary {
-    @apply inline-flex justify-center items-center px-4 py-2 bg-white border border-slate-300 rounded-lg font-medium text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 active:bg-slate-100 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-white;
+    @apply inline-flex justify-center items-center px-4 py-2 bg-white border border-neutral-300 rounded-lg font-medium text-neutral-700 hover:bg-neutral-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 transition-colors duration-200 active:bg-neutral-100 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:bg-white;
   }
 
   .card {
-    @apply bg-white rounded-2xl border border-slate-100;
+    @apply bg-white rounded-2xl border border-neutral-100;
     box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
   }
 }

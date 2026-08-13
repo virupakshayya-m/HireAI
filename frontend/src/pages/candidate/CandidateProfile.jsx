@@ -155,7 +155,7 @@ const CandidateProfile = () => {
   if (isLoading) {
     return (
       <div className="max-w-4xl mx-auto p-6 mt-8 space-y-8">
-        <div className="h-10 bg-slate-200 rounded w-48 animate-pulse mb-8"></div>
+        <div className="h-10 bg-neutral-200 rounded w-48 animate-pulse mb-8"></div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="md:col-span-2 card p-6 h-96 animate-pulse"></div>
           <div className="card p-6 h-64 animate-pulse"></div>
@@ -169,14 +169,14 @@ const CandidateProfile = () => {
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">My Profile</h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-neutral-500 mt-1">
             Keep your profile updated to improve your chances of getting noticed
             by recruiters.
           </p>
         </div>
         <Link
           to="/jobs"
-          className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+          className="text-primary-600 hover:text-primary-800 text-sm font-medium transition-colors"
         >
           &larr; Back to Jobs
         </Link>
@@ -194,24 +194,24 @@ const CandidateProfile = () => {
                   <img
                     src={profilePhoto}
                     alt="Profile"
-                    className="w-24 h-24 rounded-full object-cover border-4 border-slate-50 shadow-sm"
+                    className="w-24 h-24 rounded-full object-cover border-4 border-neutral-50 shadow-sm"
                   />
                 ) : (
-                  <div className="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 text-3xl font-bold border-4 border-white shadow-sm">
+                  <div className="w-24 h-24 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-3xl font-bold border-4 border-white shadow-sm">
                     {bio ? "U" : "?"}
                   </div>
                 )}
                 {isPhotoUploading && (
                   <div className="absolute inset-0 bg-white/60 rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-6 h-6 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
                   </div>
                 )}
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-slate-900 mb-1">
+                <h3 className="text-lg font-bold text-neutral-900 mb-1">
                   Profile Photo
                 </h3>
-                <p className="text-sm text-slate-500 mb-3">
+                <p className="text-sm text-neutral-500 mb-3">
                   Upload a professional picture (JPG, PNG).
                 </p>
                 <div className="relative">
@@ -220,7 +220,7 @@ const CandidateProfile = () => {
                     accept=".jpg,.jpeg,.png,.webp,image/*"
                     onChange={handlePhotoUpload}
                     disabled={isPhotoUploading}
-                    className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 cursor-pointer"
+                    className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer"
                   />
                 </div>
               </div>
@@ -229,26 +229,26 @@ const CandidateProfile = () => {
             {/* Personal Information */}
             <div className="card p-5 md:p-6">
               <div>
-                <h2 className="text-lg font-bold mb-5 text-slate-900">
+                <h2 className="text-lg font-bold mb-5 text-neutral-900">
                   Personal Information
                 </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">
                       Full Name
                     </label>
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
-                      className="input bg-slate-50"
+                      className="input bg-neutral-50"
                       placeholder="e.g., John Doe"
                       required
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-neutral-700 mb-2">
                       Email Address
                     </label>
                     <input
@@ -256,7 +256,7 @@ const CandidateProfile = () => {
                       value={email}
                       readOnly
                       disabled
-                      className="input bg-slate-100 text-slate-500 cursor-not-allowed"
+                      className="input bg-neutral-100 text-neutral-500 cursor-not-allowed"
                     />
                   </div>
                 </div>
@@ -268,12 +268,12 @@ const CandidateProfile = () => {
           {/* Right Column: Resume */}
           <div className="lg:col-span-1">
             <div className="card p-5 md:p-6 h-full">
-              <h2 className="text-lg font-bold mb-5 text-slate-900">Resume</h2>
+              <h2 className="text-lg font-bold mb-5 text-neutral-900">Resume</h2>
 
               <div className="space-y-6">
                 {resumeUrl ? (
-                  <div className="p-4 bg-green-50 border border-green-200 rounded-md">
-                    <div className="flex items-center space-x-2 text-green-700 mb-3">
+                  <div className="p-4 bg-success-50 border border-success-200 rounded-md">
+                    <div className="flex items-center space-x-2 text-success-700 mb-3">
                       <svg
                         className="w-5 h-5"
                         fill="none"
@@ -294,19 +294,19 @@ const CandidateProfile = () => {
                       href={resumeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                      className="text-sm text-primary-600 hover:text-primary-800 font-medium"
                     >
                       View Current Resume &rarr;
                     </a>
                   </div>
                 ) : (
-                  <div className="p-4 bg-gray-50 border border-gray-200 rounded-md">
-                    <p className="text-sm text-gray-600">No resume uploaded yet.</p>
+                  <div className="p-4 bg-neutral-50 border border-neutral-200 rounded-md">
+                    <p className="text-sm text-neutral-600">No resume uploaded yet.</p>
                   </div>
                 )}
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     {resumeUrl ? "Update Resume" : "Upload Resume"} (PDF/DOCX)
                   </label>
 
@@ -316,11 +316,11 @@ const CandidateProfile = () => {
                       accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                       onChange={handleResumeUpload}
                       disabled={isUploading}
-                      className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 cursor-pointer"
+                      className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer"
                     />
                     {isUploading && (
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        <span className="text-sm text-blue-600 font-medium animate-pulse">
+                        <span className="text-sm text-primary-600 font-medium animate-pulse">
                           Uploading...
                         </span>
                       </div>
@@ -335,66 +335,66 @@ const CandidateProfile = () => {
         {/* Bottom Section: Professional Information */}
         <div className="card p-5 md:p-6">
           <div>
-            <h2 className="text-lg font-bold mb-5 text-slate-900">
+            <h2 className="text-lg font-bold mb-5 text-neutral-900">
               Professional Information
             </h2>
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Bio
                 </label>
                 <textarea
                   rows={2}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
-                  className="input bg-slate-50"
+                  className="input bg-neutral-50"
                   placeholder="Tell recruiters a little bit about yourself..."
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-neutral-700 mb-2">
                   Skills (Comma Separated)
                 </label>
                 <input
                   type="text"
                   value={skillsText}
                   onChange={(e) => setSkillsText(e.target.value)}
-                  className="input bg-slate-50"
+                  className="input bg-neutral-50"
                   placeholder="e.g., React, Node.js, Python, Project Management"
                 />
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Education
                   </label>
                   <input
                     type="text"
                     value={education}
                     onChange={(e) => setEducation(e.target.value)}
-                    className="input bg-slate-50"
+                    className="input bg-neutral-50"
                     placeholder="e.g., BS Computer Science, Stanford University"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-neutral-700 mb-2">
                     Experience
                   </label>
                   <input
                     type="text"
                     value={experience}
                     onChange={(e) => setExperience(e.target.value)}
-                    className="input bg-slate-50"
+                    className="input bg-neutral-50"
                     placeholder="e.g., 3 years as a Frontend Developer"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-slate-100">
+              <div className="flex justify-end pt-4 border-t border-neutral-100">
                 <button
                   type="submit"
                   disabled={isSaving}

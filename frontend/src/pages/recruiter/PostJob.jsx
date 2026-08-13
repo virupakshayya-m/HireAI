@@ -52,13 +52,13 @@ function PostJob() {
       <div className="mb-8 flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold">Post New Job</h1>
-          <p className="mt-2 text-gray-500">
+          <p className="mt-2 text-neutral-500">
             Fill in the details below to publish a new job.
           </p>
         </div>
         <Link
           to="/recruiter/dashboard"
-          className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+          className="text-primary-600 hover:text-primary-800 text-sm font-medium transition-colors"
         >
           &larr; Back to Dashboard
         </Link>

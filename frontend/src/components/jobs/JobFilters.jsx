@@ -18,10 +18,10 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-12 items-end">
           {/* Keyword */}
           <div className="lg:col-span-4">
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">Search</label>
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700">Search</label>
 
           <div className="relative">
-            <Search size={18} className="absolute left-3 top-3 text-gray-400" />
+            <Search size={18} className="absolute left-3 top-3 text-neutral-400" />
 
             <input
               type="text"
@@ -29,13 +29,13 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
               value={filters.keyword}
               onChange={handleChange}
               placeholder="Job title or keyword..."
-              className="input pl-10 bg-slate-50"
+              className="input pl-10 bg-neutral-50"
             />
           </div>
         </div>
 
           <div className="lg:col-span-3">
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">Location</label>
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700">Location</label>
 
           <input
             type="text"
@@ -43,12 +43,12 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
             value={filters.location}
             onChange={handleChange}
             placeholder="Pune"
-            className="input bg-slate-50"
+            className="input bg-neutral-50"
           />
         </div>
 
           <div className="lg:col-span-2">
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
               Employment
             </label>
 
@@ -56,7 +56,7 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
             name="employmentType"
             value={filters.employmentType}
             onChange={handleChange}
-            className="input bg-slate-50"
+            className="input bg-neutral-50"
           >
             <option value="">All</option>
             {EMPLOYMENT_TYPES.map((type) => (
@@ -68,13 +68,13 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
         </div>
 
           <div className="lg:col-span-3">
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">Experience</label>
+            <label className="mb-1.5 block text-sm font-medium text-neutral-700">Experience</label>
 
           <select
             name="experienceLevel"
             value={filters.experienceLevel}
             onChange={handleChange}
-            className="input bg-slate-50"
+            className="input bg-neutral-50"
           >
             <option value="">All</option>
             {EXPERIENCE_LEVELS.map((level) => (

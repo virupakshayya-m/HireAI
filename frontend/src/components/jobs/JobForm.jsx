@@ -37,7 +37,7 @@ const JobForm = ({
           value={formData.title}
           onChange={handleChange}
           placeholder="Software Engineer"
-          className="input bg-slate-50"
+          className="input bg-neutral-50"
           required
         />
       </div>
@@ -54,7 +54,7 @@ const JobForm = ({
           value={formData.description}
           onChange={handleChange}
           placeholder="Describe the role..."
-          className="input bg-slate-50"
+          className="input bg-neutral-50"
           required
         />
       </div>
@@ -79,7 +79,7 @@ const JobForm = ({
             value={formData.salary}
             onChange={handleChange}
             placeholder="600000"
-            className="input bg-slate-50"
+            className="input bg-neutral-50"
             required
           />
         </div>
@@ -95,7 +95,7 @@ const JobForm = ({
             value={formData.location}
             onChange={handleChange}
             placeholder="Kolhapur"
-            className="input bg-slate-50"
+            className="input bg-neutral-50"
             required
           />
         </div>
@@ -111,7 +111,7 @@ const JobForm = ({
             name="employmentType"
             value={formData.employmentType}
             onChange={handleChange}
-            className="input bg-slate-50"
+            className="input bg-neutral-50"
             required
           >
             <option value="">
@@ -137,7 +137,7 @@ const JobForm = ({
             name="experienceLevel"
             value={formData.experienceLevel}
             onChange={handleChange}
-            className="input bg-slate-50"
+            className="input bg-neutral-50"
             required
           >
             <option value="">

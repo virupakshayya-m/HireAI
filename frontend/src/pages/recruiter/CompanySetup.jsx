@@ -116,8 +116,8 @@ const CompanySetup = () => {
   if (isLoading) {
     return (
       <div className="max-w-2xl mx-auto p-6 mt-8 space-y-6">
-        <div className="h-8 bg-slate-200 rounded w-64 animate-pulse mb-6"></div>
-        <div className="card p-6 h-96 animate-pulse bg-slate-100"></div>
+        <div className="h-8 bg-neutral-200 rounded w-64 animate-pulse mb-6"></div>
+        <div className="card p-6 h-96 animate-pulse bg-neutral-100"></div>
       </div>
     );
   }
@@ -125,13 +125,13 @@ const CompanySetup = () => {
   return (
     <div className="max-w-2xl mx-auto p-6 mt-8">
       <div className="mb-6 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-neutral-900">
           {isEditing ? "Update Company Profile" : "Create Company Profile"}
         </h1>
         {isEditing && (
           <Link
             to="/recruiter/dashboard"
-            className="text-blue-600 hover:text-blue-800 text-sm font-medium transition-colors"
+            className="text-primary-600 hover:text-primary-800 text-sm font-medium transition-colors"
           >
             &larr; Back to Dashboard
           </Link>
@@ -142,8 +142,8 @@ const CompanySetup = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Company Name <span className="text-red-500">*</span>
+          <label className="block text-sm font-medium text-neutral-700">
+            Company Name <span className="text-danger-500">*</span>
           </label>
           <input
             type="text"
@@ -151,7 +151,7 @@ const CompanySetup = () => {
             required
             value={formData.name}
             onChange={handleChange}
-            className="input bg-slate-50 mt-1"
+            className="input bg-neutral-50 mt-1"
             placeholder="e.g. Google, Amazon, Acme Corp"
           />
         </div>
@@ -159,7 +159,7 @@ const CompanySetup = () => {
         {/* Industry & Location */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-neutral-700">
               Industry
             </label>
             <input
@@ -167,12 +167,12 @@ const CompanySetup = () => {
               name="industry"
               value={formData.industry}
               onChange={handleChange}
-              className="input bg-slate-50 mt-1"
+              className="input bg-neutral-50 mt-1"
               placeholder="e.g. Technology, Finance"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-neutral-700">
               Location
             </label>
             <input
@@ -180,7 +180,7 @@ const CompanySetup = () => {
               name="location"
               value={formData.location}
               onChange={handleChange}
-              className="input bg-slate-50 mt-1"
+              className="input bg-neutral-50 mt-1"
               placeholder="e.g. San Francisco, CA"
             />
           </div>
@@ -188,7 +188,7 @@ const CompanySetup = () => {
 
         {/* Website */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-neutral-700">
             Website URL
           </label>
           <input
@@ -196,7 +196,7 @@ const CompanySetup = () => {
             name="website"
             value={formData.website}
             onChange={handleChange}
-            className="input bg-slate-50 mt-1"
+            className="input bg-neutral-50 mt-1"
             placeholder="https://www.example.com"
           />
         </div>
@@ -204,32 +204,32 @@ const CompanySetup = () => {
         {/* Logo */}
         {isEditing && (
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-neutral-700 mb-2">
               Company Logo
             </label>
             <div className="flex items-center gap-6">
               <div className="shrink-0 relative">
                 {formData.logo ? (
-                  <img src={formData.logo} alt="Logo" className="w-20 h-20 rounded-lg object-cover border border-slate-200 shadow-sm" />
+                  <img src={formData.logo} alt="Logo" className="w-20 h-20 rounded-lg object-cover border border-neutral-200 shadow-sm" />
                 ) : (
-                  <div className="w-20 h-20 rounded-lg bg-blue-50 flex items-center justify-center text-blue-600 text-2xl font-bold border border-blue-100 shadow-sm">
+                  <div className="w-20 h-20 rounded-lg bg-primary-50 flex items-center justify-center text-primary-600 text-2xl font-bold border border-primary-100 shadow-sm">
                     {formData.name ? formData.name.charAt(0).toUpperCase() : "?"}
                   </div>
                 )}
                 {isLogoUploading && (
                   <div className="absolute inset-0 bg-white/60 rounded-lg flex items-center justify-center">
-                    <div className="w-6 h-6 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                    <div className="w-6 h-6 border-2 border-primary-600 border-t-transparent rounded-full animate-spin"></div>
                   </div>
                 )}
               </div>
               <div className="flex-1">
-                <p className="text-sm text-slate-500 mb-2">Upload your company logo (JPG, PNG).</p>
+                <p className="text-sm text-neutral-500 mb-2">Upload your company logo (JPG, PNG).</p>
                 <input
                   type="file"
                   accept=".jpg,.jpeg,.png,.webp,image/*"
                   onChange={handleLogoUpload}
                   disabled={isLogoUploading}
-                  className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 disabled:opacity-50 cursor-pointer"
+                  className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer"
                 />
               </div>
             </div>
@@ -238,7 +238,7 @@ const CompanySetup = () => {
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-neutral-700">
             Company Description
           </label>
           <textarea
@@ -246,7 +246,7 @@ const CompanySetup = () => {
             rows={2}
             value={formData.description}
             onChange={handleChange}
-            className="input bg-slate-50 mt-1"
+            className="input bg-neutral-50 mt-1"
             placeholder="Brief description about what your company does..."
           />
         </div>
