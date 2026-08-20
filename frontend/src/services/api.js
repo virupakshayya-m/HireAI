@@ -35,6 +35,16 @@ api.interceptors.response.use(
       }
     }
 
+    // Extract backend error message and attach it directly to the error object
+    // so components using error.message get the user-friendly text instead of Axios' default
+    if (error.response?.data?.message) {
+      error.message = error.response.data.message;
+    } else if (error.response?.status >= 500) {
+      error.message = "An internal server error occurred. Please try again later.";
+    } else if (!error.response) {
+      error.message = "Network error. Please check your internet connection.";
+    }
+
     return Promise.reject(error);
   },
 );
