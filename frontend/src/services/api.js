@@ -11,12 +11,31 @@ api.interceptors.response.use(
   (response) => response,
 
   async (error) => {
+    // 1. Extract backend error message and attach it directly to the error object
+    if (error.response?.data?.errors) {
+      // Handle Zod validation errors (e.g., { password: ["Too short"] })
+      const errorMessages = Object.values(error.response.data.errors).flat();
+      error.message = errorMessages.join(", ");
+    } else if (error.response?.data?.message) {
+      error.message = error.response.data.message;
+    } else if (error.response?.status >= 500) {
+      error.message = "An internal server error occurred. Please try again later.";
+    } else if (!error.response) {
+      error.message = "Network error. Please check your internet connection.";
+    }
+
     const originalRequest = error.config;
 
-    if (originalRequest.url.includes("/auth/refresh-token")) {
+    // 2. Prevent infinite loops or retrying login/register requests
+    if (
+      originalRequest.url.includes("/auth/refresh-token") ||
+      originalRequest.url.includes("/auth/login") ||
+      originalRequest.url.includes("/auth/register")
+    ) {
       return Promise.reject(error);
     }
 
+    // 3. Handle token refresh for 401 Unauthorized errors on protected routes
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -26,23 +45,19 @@ api.interceptors.response.use(
           {},
           {
             withCredentials: true,
-          },
+          }
         );
 
         return api(originalRequest);
       } catch (refreshError) {
+        // If refresh fails, we should still return the formatted refresh error or just a clean message
+        if (refreshError.response?.data?.message) {
+          refreshError.message = refreshError.response.data.message;
+        } else {
+          refreshError.message = "Session expired. Please log in again.";
+        }
         return Promise.reject(refreshError);
       }
-    }
-
-    // Extract backend error message and attach it directly to the error object
-    // so components using error.message get the user-friendly text instead of Axios' default
-    if (error.response?.data?.message) {
-      error.message = error.response.data.message;
-    } else if (error.response?.status >= 500) {
-      error.message = "An internal server error occurred. Please try again later.";
-    } else if (!error.response) {
-      error.message = "Network error. Please check your internet connection.";
     }
 
     return Promise.reject(error);
