@@ -75,6 +75,7 @@ const JobDetails = () => {
 
       const data = await applyForJob(id);
       toast.success(data.message);
+      navigate("/candidate/applications");
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || error.message || "Failed to apply";

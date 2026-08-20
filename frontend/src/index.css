@@ -63,6 +63,13 @@
     background-image: linear-gradient(to bottom, #f8fafc, #f1f5f9);
     background-attachment: fixed;
   }
+  
+  button, 
+  [type='button'], 
+  [type='reset'], 
+  [type='submit'] {
+    @apply cursor-pointer disabled:cursor-not-allowed;
+  }
 }
 
 @layer components {

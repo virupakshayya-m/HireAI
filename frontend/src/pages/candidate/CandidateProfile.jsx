@@ -220,7 +220,7 @@ const CandidateProfile = () => {
                     accept=".jpg,.jpeg,.png,.webp,image/*"
                     onChange={handlePhotoUpload}
                     disabled={isPhotoUploading}
-                    className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer"
+                    className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                   />
                 </div>
               </div>
@@ -316,7 +316,7 @@ const CandidateProfile = () => {
                       accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                       onChange={handleResumeUpload}
                       disabled={isUploading}
-                      className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer"
+                      className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                     />
                     {isUploading && (
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">

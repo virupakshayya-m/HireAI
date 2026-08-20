@@ -21,23 +21,29 @@ const Navbar = () => {
     }
   };
 
-  const renderNavLinks = () => {
+  const renderNavLinks = (isMobile = false) => {
+    const mobileLinkClass = "block px-3 py-2 rounded-md text-base font-medium";
+    const desktopLinkClass = "font-medium transition-colors";
+    
+    const getLinkClass = (path) => {
+      const isActive = location.pathname === path || (path !== "/" && path !== "/login" && location.pathname.includes(path));
+      
+      if (isMobile) {
+        return `${mobileLinkClass} ${isActive ? "text-primary-600 bg-primary-50" : "text-neutral-700 hover:text-primary-600 hover:bg-neutral-50"}`;
+      }
+      return `${desktopLinkClass} ${isActive ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`;
+    };
+
     if (!user) {
       return (
         <>
-          <Link
-            to="/jobs"
-            className={`font-medium transition-colors ${location.pathname === "/jobs" ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
-          >
+          <Link to="/jobs" className={getLinkClass("/jobs")}>
             Find Jobs
           </Link>
-          <Link
-            to="/login"
-            className="text-neutral-600 hover:text-primary-600 font-medium transition-colors"
-          >
+          <Link to="/login" className={getLinkClass("/login")}>
             Log in
           </Link>
-          <Link to="/register" className="btn-primary">
+          <Link to="/register" className={isMobile ? getLinkClass("/register") : "btn-primary"}>
             Sign up
           </Link>
         </>
@@ -47,16 +53,10 @@ const Navbar = () => {
     if (user.role === "candidate") {
       return (
         <>
-          <Link
-            to="/jobs"
-            className={`font-medium transition-colors ${location.pathname === "/jobs" ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
-          >
+          <Link to="/jobs" className={getLinkClass("/jobs")}>
             Find Jobs
           </Link>
-          <Link
-            to="/candidate/applications"
-            className={`font-medium transition-colors ${location.pathname === "/candidate/applications" ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
-          >
+          <Link to="/candidate/applications" className={getLinkClass("/candidate/applications")}>
             My Applications
           </Link>
         </>
@@ -66,13 +66,10 @@ const Navbar = () => {
     if (user.role === "recruiter") {
       return (
         <>
-          <Link
-            to="/recruiter/dashboard"
-            className={`font-medium transition-colors ${location.pathname.includes("/dashboard") ? "text-primary-600" : "text-neutral-600 hover:text-primary-600"}`}
-          >
+          <Link to="/recruiter/dashboard" className={getLinkClass("/recruiter/dashboard")}>
             Dashboard
           </Link>
-          <Link to="/recruiter/jobs/new" className="btn-primary">
+          <Link to="/recruiter/jobs/new" className={isMobile ? getLinkClass("/recruiter/jobs/new") : "btn-primary"}>
             Post a Job
           </Link>
         </>
@@ -201,8 +198,8 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
         <div className="md:hidden border-t border-neutral-200 bg-white">
-          <div className="px-4 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col gap-4">
-            {renderNavLinks()}
+          <div className="px-4 pt-2 pb-4 space-y-1 sm:px-3 flex flex-col">
+            {renderNavLinks(true)}
             {user && (
               <div className="pt-4 border-t border-neutral-200">
                 <div className="flex items-center px-2 mb-4">
