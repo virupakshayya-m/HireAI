@@ -4,7 +4,10 @@ import AppError from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const protect = asyncHandler(async (req, res, next) => {
-  const token = req.cookies.accessToken;
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+    token = req.headers.authorization.split(" ")[1];
+  }
 
   if (!token) {
     throw new AppError("Not authorized, no token provided", 401);
