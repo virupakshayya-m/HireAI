@@ -32,6 +32,8 @@ function Login() {
 
     try {
       const response = await loginUser(formData);
+      localStorage.setItem("accessToken", response.user.accessToken);
+      localStorage.setItem("refreshToken", response.user.refreshToken);
       setUser(response.user);
       
       const redirectPath = getOnboardingRedirectPath(response.user);
