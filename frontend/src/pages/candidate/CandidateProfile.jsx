@@ -198,7 +198,7 @@ const CandidateProfile = () => {
                   />
                 ) : (
                   <div className="w-24 h-24 rounded-full bg-primary-100 flex items-center justify-center text-primary-600 text-3xl font-bold border-4 border-white shadow-sm">
-                    {bio ? "U" : "?"}
+                    {name ? name.charAt(0).toUpperCase() : "?"}
                   </div>
                 )}
                 {isPhotoUploading && (
@@ -318,14 +318,12 @@ const CandidateProfile = () => {
                       disabled={isUploading}
                       className="block w-full text-sm text-neutral-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:sm file:font-medium file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                     />
-                    {isUploading && (
-                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        <span className="text-sm text-primary-600 font-medium animate-pulse">
-                          Uploading...
-                        </span>
-                      </div>
-                    )}
                   </div>
+                  {isUploading && (
+                    <p className="mt-2 text-sm text-primary-600 font-medium animate-pulse">
+                      Uploading...
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
