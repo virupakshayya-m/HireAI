@@ -51,7 +51,7 @@ export const getMyCompany = asyncHandler(async (req, res) => {
   const recruiter = req.user;
 
   if (!recruiter.company) {
-    throw new AppError("Recruiter has not created a company yet", 403);
+    throw new AppError("Recruiter has not created a company yet", 404);
   }
 
   const company = await Company.findById(recruiter.company);
@@ -80,7 +80,7 @@ export const updateCompany = asyncHandler(async (req, res) => {
   const recruiter = req.user;
 
   if (!recruiter.company) {
-    throw new AppError("Recruiter has not created a company yet", 403);
+    throw new AppError("Recruiter has not created a company yet", 404);
   }
 
   const updatedCompany = await Company.findByIdAndUpdate(
@@ -133,7 +133,7 @@ export const uploadCompanyLogo = asyncHandler(async (req, res) => {
   const recruiter = req.user;
 
   if (!recruiter.company) {
-    throw new AppError("Recruiter has not created a company yet", 403);
+    throw new AppError("Recruiter has not created a company yet", 404);
   }
 
   const company = await Company.findById(recruiter.company);

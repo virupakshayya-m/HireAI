@@ -52,7 +52,6 @@ function App() {
 
         <Route element={<ProtectedRoute allowedRoles={["recruiter"]} requireOnboarding={true} />}>
           <Route path="/recruiter/jobs/new" element={<PostJob />} />
-          <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
           <Route path="/recruiter/jobs/:id/edit" element={<EditJob />} />
           <Route
             path="/recruiter/jobs/:id/applicants"
@@ -61,6 +60,7 @@ function App() {
         </Route>
         
         <Route element={<ProtectedRoute allowedRoles={["recruiter"]} />}>
+          <Route path="/recruiter/dashboard" element={<RecruiterDashboard />} />
           <Route path="/recruiter/company" element={<CompanySetup />} />
           <Route path="/recruiter/profile" element={<RecruiterProfile />} />
         </Route>

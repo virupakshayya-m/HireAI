@@ -6,6 +6,8 @@ import JobFilters from "@/components/jobs/JobFilters";
 import Pagination from "@/components/common/Pagination";
 import RecruiterJobCard from "@/components/recruiter/RecruiterJobCard";
 import ConfirmationModal from "@/components/common/ConfirmationModal";
+import { useAuth } from "@/context/AuthContext";
+import { isRecruiterProfileComplete } from "@/utils/onboarding";
 
 const RecruiterDashboard = () => {
   const initialFilters = {
@@ -14,6 +16,9 @@ const RecruiterDashboard = () => {
     employmentType: "",
     experienceLevel: "",
   };
+
+  const { user } = useAuth();
+  const isProfileComplete = isRecruiterProfileComplete(user);
 
   const [filters, setFilters] = useState(initialFilters);
 
@@ -102,6 +107,14 @@ const RecruiterDashboard = () => {
     }
   };
 
+  const handlePostJobClick = () => {
+    if (!isProfileComplete) {
+      toast("Please complete your company profile first to start posting jobs.", {
+        icon: "🏢",
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <div className="mx-auto max-w-7xl px-4 py-8">
@@ -124,6 +137,21 @@ const RecruiterDashboard = () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8">
+      {/* Banner for Soft Gating */}
+      {!isProfileComplete && (
+        <div className="mb-6 bg-warning-50 border border-warning-200 text-warning-800 px-4 py-3 rounded-lg flex items-center justify-between">
+          <p className="text-sm font-medium">
+            Welcome to HireAI! Please complete your company profile to start posting jobs.
+          </p>
+          <Link
+            to="/recruiter/company"
+            className="text-sm font-bold underline hover:text-warning-900 whitespace-nowrap ml-4"
+          >
+            Setup Company &rarr;
+          </Link>
+        </div>
+      )}
+
       {/* Header */}
 
       <div className="mb-8 flex items-center justify-between">
@@ -136,7 +164,8 @@ const RecruiterDashboard = () => {
         </div>
 
         <Link
-          to="/recruiter/jobs/new"
+          to={isProfileComplete ? "/recruiter/jobs/new" : "/recruiter/company"}
+          onClick={handlePostJobClick}
           className="btn-primary"
         >
           + Post New Job
@@ -157,7 +186,8 @@ const RecruiterDashboard = () => {
             You haven't posted any jobs yet. Create your first job posting and start hiring today.
           </p>
           <Link
-            to="/recruiter/jobs/new"
+            to={isProfileComplete ? "/recruiter/jobs/new" : "/recruiter/company"}
+            onClick={handlePostJobClick}
             className="btn-primary"
           >
             Post Your First Job
