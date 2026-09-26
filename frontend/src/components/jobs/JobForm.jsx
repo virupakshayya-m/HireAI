@@ -28,10 +28,11 @@ const JobForm = ({
       {/* Title */}
 
       <div>
-        <label className="mb-2 block font-medium">
+        <label htmlFor="title" className="mb-2 block font-medium">
           Job Title
         </label>
         <input
+          id="title"
           type="text"
           name="title"
           value={formData.title}
@@ -45,10 +46,11 @@ const JobForm = ({
       {/* Description */}
 
       <div>
-        <label className="mb-2 block font-medium">
+        <label htmlFor="description" className="mb-2 block font-medium">
           Description
         </label>
         <textarea
+          id="description"
           rows={3}
           name="description"
           value={formData.description}
@@ -69,10 +71,11 @@ const JobForm = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Salary */}
         <div>
-          <label className="mb-2 block font-medium">
+          <label htmlFor="salary" className="mb-2 block font-medium">
             Salary (₹)
           </label>
           <input
+            id="salary"
             type="number"
             min={1}
             name="salary"
@@ -86,10 +89,11 @@ const JobForm = ({
 
         {/* Location */}
         <div>
-          <label className="mb-2 block font-medium">
+          <label htmlFor="location" className="mb-2 block font-medium">
             Location
           </label>
           <input
+            id="location"
             type="text"
             name="location"
             value={formData.location}
@@ -104,10 +108,11 @@ const JobForm = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Employment Type */}
         <div>
-          <label className="mb-2 block font-medium">
+          <label htmlFor="employmentType" className="mb-2 block font-medium">
             Employment Type
           </label>
           <select
+            id="employmentType"
             name="employmentType"
             value={formData.employmentType}
             onChange={handleChange}
@@ -130,10 +135,11 @@ const JobForm = ({
 
         {/* Experience */}
         <div>
-          <label className="mb-2 block font-medium">
+          <label htmlFor="experienceLevel" className="mb-2 block font-medium">
             Experience Level
           </label>
           <select
+            id="experienceLevel"
             name="experienceLevel"
             value={formData.experienceLevel}
             onChange={handleChange}

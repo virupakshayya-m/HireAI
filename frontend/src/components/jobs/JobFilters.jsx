@@ -18,12 +18,11 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-12 items-end">
           {/* Keyword */}
           <div className="lg:col-span-4">
-            <label className="mb-1.5 block text-sm font-medium text-neutral-700">Search</label>
-
+            <label htmlFor="keyword" className="mb-1.5 block text-sm font-medium text-neutral-700">Search</label>
           <div className="relative">
             <Search size={18} className="absolute left-3 top-3 text-neutral-400" />
-
             <input
+              id="keyword"
               type="text"
               name="keyword"
               value={filters.keyword}
@@ -35,9 +34,9 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
         </div>
 
           <div className="lg:col-span-3">
-            <label className="mb-1.5 block text-sm font-medium text-neutral-700">Location</label>
-
+            <label htmlFor="location" className="mb-1.5 block text-sm font-medium text-neutral-700">Location</label>
           <input
+            id="location"
             type="text"
             name="location"
             value={filters.location}
@@ -48,11 +47,11 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
         </div>
 
           <div className="lg:col-span-2">
-            <label className="mb-1.5 block text-sm font-medium text-neutral-700">
+            <label htmlFor="employmentType" className="mb-1.5 block text-sm font-medium text-neutral-700">
               Employment
             </label>
-
           <select
+            id="employmentType"
             name="employmentType"
             value={filters.employmentType}
             onChange={handleChange}
@@ -68,9 +67,9 @@ const JobFilters = ({ filters, setFilters, onApply, onReset }) => {
         </div>
 
           <div className="lg:col-span-3">
-            <label className="mb-1.5 block text-sm font-medium text-neutral-700">Experience</label>
-
+            <label htmlFor="experienceLevel" className="mb-1.5 block text-sm font-medium text-neutral-700">Experience</label>
           <select
+            id="experienceLevel"
             name="experienceLevel"
             value={filters.experienceLevel}
             onChange={handleChange}

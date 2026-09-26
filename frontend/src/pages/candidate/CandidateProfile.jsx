@@ -235,10 +235,11 @@ const CandidateProfile = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-neutral-700 mb-2">
                       Full Name
                     </label>
                     <input
+                      id="name"
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -248,10 +249,11 @@ const CandidateProfile = () => {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-neutral-700 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-neutral-700 mb-2">
                       Email Address
                     </label>
                     <input
+                      id="email"
                       type="email"
                       value={email}
                       readOnly
@@ -306,12 +308,13 @@ const CandidateProfile = () => {
                 )}
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label htmlFor="resume" className="block text-sm font-medium text-neutral-700 mb-2">
                     {resumeUrl ? "Update Resume" : "Upload Resume"} (PDF/DOCX)
                   </label>
 
                   <div className="relative">
                     <input
+                      id="resume"
                       type="file"
                       accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                       onChange={handleResumeUpload}
@@ -339,10 +342,11 @@ const CandidateProfile = () => {
 
             <div className="space-y-6">
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                <label htmlFor="bio" className="block text-sm font-medium text-neutral-700 mb-2">
                   Bio
                 </label>
                 <textarea
+                  id="bio"
                   rows={2}
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
@@ -352,10 +356,11 @@ const CandidateProfile = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-2">
+                <label htmlFor="skillsText" className="block text-sm font-medium text-neutral-700 mb-2">
                   Skills (Comma Separated)
                 </label>
                 <input
+                  id="skillsText"
                   type="text"
                   value={skillsText}
                   onChange={(e) => setSkillsText(e.target.value)}
@@ -366,10 +371,11 @@ const CandidateProfile = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label htmlFor="education" className="block text-sm font-medium text-neutral-700 mb-2">
                     Education
                   </label>
                   <input
+                    id="education"
                     type="text"
                     value={education}
                     onChange={(e) => setEducation(e.target.value)}
@@ -379,10 +385,11 @@ const CandidateProfile = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-2">
+                  <label htmlFor="experience" className="block text-sm font-medium text-neutral-700 mb-2">
                     Experience
                   </label>
                   <input
+                    id="experience"
                     type="text"
                     value={experience}
                     onChange={(e) => setExperience(e.target.value)}

@@ -142,10 +142,11 @@ const CompanySetup = () => {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700">
+          <label htmlFor="name" className="block text-sm font-medium text-neutral-700">
             Company Name <span className="text-danger-500">*</span>
           </label>
           <input
+            id="name"
             type="text"
             name="name"
             required
@@ -159,10 +160,11 @@ const CompanySetup = () => {
         {/* Industry & Location */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-neutral-700">
+            <label htmlFor="industry" className="block text-sm font-medium text-neutral-700">
               Industry
             </label>
             <input
+              id="industry"
               type="text"
               name="industry"
               value={formData.industry}
@@ -172,10 +174,11 @@ const CompanySetup = () => {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-neutral-700">
+            <label htmlFor="location" className="block text-sm font-medium text-neutral-700">
               Location
             </label>
             <input
+              id="location"
               type="text"
               name="location"
               value={formData.location}
@@ -188,10 +191,11 @@ const CompanySetup = () => {
 
         {/* Website */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700">
+          <label htmlFor="website" className="block text-sm font-medium text-neutral-700">
             Website URL
           </label>
           <input
+            id="website"
             type="url"
             name="website"
             value={formData.website}
@@ -204,7 +208,7 @@ const CompanySetup = () => {
         {/* Logo */}
         {isEditing && (
           <div>
-            <label className="block text-sm font-medium text-neutral-700 mb-2">
+            <label htmlFor="logo-upload" className="block text-sm font-medium text-neutral-700 mb-2">
               Company Logo
             </label>
             <div className="flex items-center gap-6">
@@ -225,6 +229,7 @@ const CompanySetup = () => {
               <div className="flex-1">
                 <p className="text-sm text-neutral-500 mb-2">Upload your company logo (JPG, PNG).</p>
                 <input
+                  id="logo-upload"
                   type="file"
                   accept=".jpg,.jpeg,.png,.webp,image/*"
                   onChange={handleLogoUpload}
@@ -238,10 +243,11 @@ const CompanySetup = () => {
 
         {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-neutral-700">
+          <label htmlFor="description" className="block text-sm font-medium text-neutral-700">
             Company Description
           </label>
           <textarea
+            id="description"
             name="description"
             rows={2}
             value={formData.description}
