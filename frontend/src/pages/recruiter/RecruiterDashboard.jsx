@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getMyJobs, deleteJob } from "@/services/jobService";
 import JobFilters from "@/components/jobs/JobFilters";
 import Pagination from "@/components/common/Pagination";
@@ -10,6 +10,7 @@ import { useAuth } from "@/context/AuthContext";
 import { isRecruiterProfileComplete } from "@/utils/onboarding";
 
 const RecruiterDashboard = () => {
+  const navigate = useNavigate();
   const initialFilters = {
     keyword: "",
     location: "",
@@ -35,6 +36,8 @@ const RecruiterDashboard = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  
+  const [isSetupModalOpen, setIsSetupModalOpen] = useState(false);
 
   const fetchJobs = useCallback(async () => {
     try {
@@ -107,11 +110,10 @@ const RecruiterDashboard = () => {
     }
   };
 
-  const handlePostJobClick = () => {
+  const handlePostJobClick = (e) => {
     if (!isProfileComplete) {
-      toast("Please complete your company profile first to start posting jobs.", {
-        icon: "🏢",
-      });
+      e.preventDefault();
+      setIsSetupModalOpen(true);
     }
   };
 
@@ -223,6 +225,20 @@ const RecruiterDashboard = () => {
           setIsDeleteOpen(false);
           setSelectedJob(null);
         }}
+      />
+      
+      <ConfirmationModal
+        isOpen={isSetupModalOpen}
+        title="Company Profile Required"
+        message="You need to set up your company profile before you can post a job. This helps candidates know who is hiring."
+        confirmText="Setup Company"
+        cancelText="Not Now"
+        isDanger={false}
+        onConfirm={() => {
+          setIsSetupModalOpen(false);
+          navigate("/recruiter/company");
+        }}
+        onCancel={() => setIsSetupModalOpen(false)}
       />
     </div>
   );

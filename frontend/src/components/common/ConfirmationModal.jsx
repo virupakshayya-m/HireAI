@@ -10,6 +10,7 @@ function ConfirmationModal({
   loadingText = "Deleting...",
   onConfirm,
   onCancel,
+  isDanger = true,
 }) {
   useEffect(() => {
     if (!isOpen) return;
@@ -56,7 +57,7 @@ function ConfirmationModal({
             type="button"
             disabled={loading}
             onClick={onConfirm}
-            className="rounded-lg bg-danger-600 px-4 py-2 text-white hover:bg-danger-700 disabled:opacity-50"
+            className={`rounded-lg px-4 py-2 text-white disabled:opacity-50 ${isDanger ? "bg-danger-600 hover:bg-danger-700" : "bg-primary-600 hover:bg-primary-700"}`}
           >
             {loading ? loadingText : confirmText}
           </button>
