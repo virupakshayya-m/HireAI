@@ -1,5 +1,6 @@
 
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Layout = ({ children }) => {
   return (
@@ -10,13 +11,7 @@ const Layout = ({ children }) => {
         {children}
       </main>
 
-      <footer className="bg-white border-t border-neutral-200 mt-auto">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-neutral-500">
-            &copy; {new Date().getFullYear()} HireAI. All rights reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
