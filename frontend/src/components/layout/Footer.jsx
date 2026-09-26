@@ -1,13 +1,18 @@
 import { Link } from "react-router-dom";
 import { Mail } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { user } = useAuth();
+  
+  const isMinimal = !!user;
 
   return (
     <footer className="bg-white border-t border-neutral-200 mt-auto">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-12">
+      <div className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${isMinimal ? 'py-6' : 'pt-16 pb-8'}`}>
+        {!isMinimal && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-12">
           
           {/* Brand & Description - Takes up 2 columns on lg */}
           <div className="lg:col-span-2 space-y-6">
@@ -96,16 +101,16 @@ const Footer = () => {
             </ul>
           </div>
         </div>
+        )}
 
-        <div className="pt-8 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-neutral-500">
-            &copy; {currentYear} HireAI. All rights reserved.
-          </p>
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 text-sm text-neutral-500">
-              <span className="w-2 h-2 rounded-full bg-success-500"></span>
-              All systems operational
-            </span>
+        <div className={`${!isMinimal ? 'pt-8 border-t border-neutral-100' : ''} flex flex-col md:flex-row justify-center items-center gap-4`}>
+          <div className="flex items-center gap-4">
+            {isMinimal && (
+              <span className="text-primary-600 font-bold tracking-tight">HireAI</span>
+            )}
+            <p className="text-sm text-neutral-500">
+              &copy; {currentYear} HireAI. All rights reserved.
+            </p>
           </div>
         </div>
       </div>
