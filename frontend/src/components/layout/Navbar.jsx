@@ -203,9 +203,17 @@ const Navbar = () => {
             {user && (
               <div className="pt-4 border-t border-neutral-200">
                 <div className="flex items-center px-2 mb-4">
-                  <div className="w-10 h-10 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold text-lg">
-                    {user.name.charAt(0).toUpperCase()}
-                  </div>
+                  {user.profile?.profilePhoto ? (
+                    <img
+                      src={user.profile.profilePhoto}
+                      alt={user.name}
+                      className="w-10 h-10 rounded-full object-cover border border-neutral-100 shadow-sm"
+                    />
+                  ) : (
+                    <div className="w-10 h-10 bg-primary-100 text-primary-700 rounded-full flex items-center justify-center font-bold text-lg">
+                      {user.name.charAt(0).toUpperCase()}
+                    </div>
+                  )}
                   <div className="ml-3">
                     <div className="text-base font-medium text-neutral-800">
                       {user.name}

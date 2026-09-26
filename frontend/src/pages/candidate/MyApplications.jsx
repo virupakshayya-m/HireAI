@@ -94,7 +94,8 @@ const MyApplications = () => {
         </div>
       ) : (
         <div className="card overflow-hidden border-0">
-          <table className="min-w-full divide-y divide-gray-200">
+          <div className="overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-neutral-50">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-neutral-500 uppercase tracking-wider">
@@ -208,7 +209,8 @@ const MyApplications = () => {
                 </React.Fragment>
               ))}
             </tbody>
-          </table>
+            </table>
+          </div>
         </div>
       )}
     </div>
